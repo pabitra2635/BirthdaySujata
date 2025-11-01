@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- This tag ensures the site looks good on mobile phones -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- MODIFIED: Title changed to Sujata -->
+    <title>Happy Birthday, Sujata!</title>
+    
+    <!-- Link to the AOS animation library for scroll effects -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Link to Google Fonts for beautiful, cursive text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Scripts for AOS and Tone.js, needed for the main site -->
+    <!-- We load them here so they are ready when we show the main site -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+    <style>
+        /* --- 1. General Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            /* This makes scrolling smooth when clicking a link (if we add links later) */
+            scroll-behavior: smooth;
+        }
+
+        body {
+            /* We'll use the 'Poppins' font for most text */
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a1a1a; /* Dark background for a cozy feel */
+            color: #ffffff; /* White text */
+            overflow-x: hidden; /* Prevents accidental horizontal scrolling */
+        }
+
+        /* --- 2. The "Touch of Love" Canvas --- */
+        /* This canvas is for our heart animation. It sits on top of everything. */
+        #loveCanvas {
+            position: fixed; /* Stays in place even when scrolling */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000; /* Sits on top of all other content */
+            /* This is a crucial part: it lets you click *through* the canvas */
+            pointer-events: none; 
+        }
+
+        /* --- 3. Section Styling --- */
+        /* Each 'section' is a full-screen panel */
+        section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh; /* Makes each section fill the screen height */
+            padding: 40px 20px; /* (MODIFIED) Reduced horizontal padding for all sizes */
+            text-align: center;
+            position: relative;
+            overflow: hidden; /* Hides any overflowing animation elements */
+        }
+
+        /* --- 4. Hero Section (First Screen) --- */
+        .hero {
+            /* NEW: Animated gradient background */
+            background-image: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f7b2c5 50%, #764ba2 75%, #667eea 100%);
+            background-size: 400% 400%; /* Make background larger than viewport */
+            animation: gradientShift 15s ease infinite; /* Animate the background position */
+            
+            /* IMPORTANT: To use your own background image:
+            1. Put your image file (e.g., "our_photo.jpg") in the same folder as this HTML file.
+            2. Delete or comment out the 'background-image' line above.
+            3. Uncomment the line below and change 'background.jpg' to your file's name.
+            */
+            /* background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('background.jpg'); */
+            
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero .content {
+            position: relative; /* Add this */
+            z-index: 2;         /* Add this */
+        }
+
+        .hero h1 {
+            /* 'Great Vibes' is our beautiful cursive font */
+            font-family: 'Great Vibes', cursive;
+            font-size: 5rem; /* (MODIFIED) Slightly smaller base font */
+            margin-bottom: 20px;
+            color: #f7b2c5; /* A soft, celebratory pink */
+            text-shadow: 0 0 15px rgba(247, 178, 197, 0.7);
+        }
+
+        .hero p {
+            font-size: 1.3rem; /* (MODIFIED) Slightly smaller base font */
+            font-weight: 400;
+        }
+
+        /* This is the little "Scroll Down" arrow */
+        .scroll-down {
+            margin-top: 50px;
+            font-size: 1rem;
+            color: #ffffff;
+            animation: bounce 2s infinite; /* A bouncing animation to get attention */
+        }
+
+        /* Bouncing animation keyframes */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* NEW: Keyframes for animated gradient */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- 5. Message Section --- */
+        .message {
+            flex-direction: row; /* Puts image and text side-by-side */
+            flex-wrap: wrap; /* Allows items to stack on smaller screens */
+            gap: 40px;
+            background-color: #2c2c2c; /* A slightly lighter dark color */
+        }
+
+        .content-box {
+            max-width: 500px;
+            text-align: left;
+            position: relative; /* Add this */
+            z-index: 2;         /* Add this */
+        }
+
+        .content-box h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: #f7b2c5;
+            margin-bottom: 20px;
+        }
+
+        .photo {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 15px; /* Rounded corners */
+            border: 5px solid #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        .photo:hover {
+            transform: scale(1.05); /* Slight zoom on hover */
+        }
+
+        /* --- 6. Memories Section --- */
+        .memories h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: #f7b2c5;
+            margin-bottom: 40px;
+            position: relative; /* Add this */
+            z-index: 2;         /* Add this */
+        }
+
+        .gallery {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: relative; /* Add this */
+            z-index: 2;         /* Add this */
+        }
+
+        .memory-item img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            border: 3px solid #ffffff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .memory-item img:hover {
+            transform: scale(1.05) rotate(2deg); /* Zooms and slightly rotates */
+            box-shadow: 0 10px 20px rgba(247, 178, 197, 0.2);
+        }
+
+        .memory-item p {
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* --- 7. Final Wish Section --- */
+        .wish {
+            background-color: #2c2c2c;
+        }
+        .wish .content {
+            position: relative; /* Add this */
+            z-index: 2;         /* Add this */
+        }
+        .wish h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: #f7b2c5;
+        }
+        .wish p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 20px 0;
+        }
+        .wish h3 {
+            margin-top: 30px;
+            font-weight: 400;
+            font-style: italic;
+            font-size: 1.5rem;
+        }
+
+        /* --- 8. Responsive Design (for Mobile) --- */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 4rem; /* Smaller text on small screens */
+            }
+            .hero p {
+                font-size: 1.2rem;
+            }
+            .message {
+                flex-direction: column; /* Stack image and text vertically */
+            }
+            .content-box {
+                text-align: center; /* Center-align text on mobile */
+            }
+        }
+
+        /* (NEW) Further adjustments for very small screens */
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 3.5rem; /* Even smaller */
+            }
+            .hero p {
+                font-size: 1.1rem;
+            }
+            .wish h2 {
+                font-size: 3rem; /* Scale down other headers */
+            }
+            .memories h2 {
+                font-size: 2.8rem;
+            }
+            .content-box h2 {
+                font-size: 2.5rem;
+            }
+            /* (NEW) Make modal padding smaller on phones */
+            .modal-content {
+                padding: 20px; 
+                width: 90%; /* Ensure it doesn't touch edges */
+            }
+            /* (NEW) Make modal title smaller on phones */
+            .modal-content h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* --- 9. Ambient Animation (NEW) --- */
+        .particle-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1; /* Above section bg, below content */
+            pointer-events: none; /* Make sure it doesn't block clicks */
+        }
+
+        .particle {
+            position: absolute;
+            display: block;
+            list-style: none; /* Remove bullet points */
+            width: 20px;
+            height: 20px;
+            background-color: rgba(247, 178, 197, 0.15); /* Soft pink, semi-transparent */
+            border-radius: 50%;
+            bottom: -150px; /* Start off-screen */
+            animation: floatUp 25s infinite linear;
+        }
+
+        /* Keyframes for floating up */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(0.5);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-110vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Create variations for different particles */
+        .particle-container .p1 {
+            left: 10%; width: 15px; height: 15px;
+            animation-delay: 0s; animation-duration: 20s;
+        }
+        .particle-container .p2 {
+            left: 20%; width: 25px; height: 25px;
+            animation-delay: 2s; animation-duration: 30s;
+        }
+        .particle-container .p3 {
+            left: 30%; width: 10px; height: 10px;
+            animation-delay: 4s; animation-duration: 18s;
+        }
+        .particle-container .p4 {
+            left: 40%; width: 30px; height: 30px;
+            animation-delay: 0s; animation-duration: 22s;
+        }
+        .particle-container .p5 {
+            left: 50%; width: 12px; height: 12px;
+            animation-delay: 5s; animation-duration: 28s;
+        }
+        .particle-container .p6 {
+            left: 60%; width: 22px; height: 22px;
+            animation-delay: 3s; animation-duration: 24s;
+        }
+        .particle-container .p7 {
+            left: 70%; width: 18px; height: 18px;
+            animation-delay: 7s; animation-duration: 35s;
+        }
+        .particle-container .p8 {
+            left: 80%; width: 10px; height: 10px;
+            animation-delay: 1s; animation-duration: 19s;
+        }
+        .particle-container .p9 {
+            left: 90%; width: 28px; height: 28px;
+            animation-delay: 6s; animation-duration: 26s;
+        }
+        .particle-container .p10 {
+            left: 65%; width: 16px; height: 16px;
+            animation-delay: 8s; animation-duration: 21s;
+        }
+
+        /* --- 10. (NEW) Celebrate Button Style --- */
+        .celebrate-btn {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            background-image: linear-gradient(135deg, #f7b2c5 0%, #f78fa7 100%);
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            margin-top: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(247, 178, 197, 0.3);
+            z-index: 10;
+            position: relative;
+        }
+
+        .celebrate-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(247, 178, 197, 0.5);
+        }
+
+        /* --- 11. (NEW) Cake Modal Styles --- */
+        .cake-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); /* Darker overlay */
+            z-index: 2000; /* On top of everything */
+            opacity: 0;
+            visibility: hidden;
+            display: flex; /* Keep flex on */
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px); /* Nice blur effect */
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        /* This class now controls showing the modal */
+        .cake-modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: #2c2c2c;
+            padding: 30px 40px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 40px rgba(247, 178, 197, 0.3);
+            border: 2px solid #f7b2c5;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2.5rem;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #f7b2c5;
+        }
+
+        .modal-content h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: #f7b2c5;
+            margin-bottom: 10px;
+        }
+        
+        .modal-content p {
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-top: 20px;
+        }
+
+        .cake-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 20px auto 0;
+        }
+
+        .cake {
+            position: absolute;
+            width: 180px;
+            height: 100px;
+            background: #fdf0d5; /* Cake color */
+            bottom: 0;
+            left: 10px;
+            border-radius: 10px 10px 0 0;
+            transition: transform 0.1s ease; /* (NEW) Add transition for cut effect */
+        }
+
+        /* (NEW) Class to make cake clickable */
+        .cake.clickable {
+            cursor: pointer;
+        }
+
+        /* (NEW) Simple "cut" animation */
+        .cake.cut {
+            transform: scale(0.98);
+        }
+
+        .layer {
+            position: absolute;
+            width: 100%;
+            height: 33.33%;
+            background: #fdf0d5;
+        }
+
+        .layer-top { top: 0; border-radius: 10px 10px 0 0; }
+        .layer-middle { top: 33.33%; background: #d4a373; } /* Filling */
+        .layer-bottom { top: 66.66%; }
+
+        .icing {
+            position: absolute;
+            top: -15px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: #f7b2c5; /* Pink icing */
+            border-radius: 10px;
+        }
+
+        .candle {
+            position: absolute;
+            width: 10px;
+            height: 30px;
+            background: #ffffff;
+            bottom: 100px;
+            border: 2px solid #e91e63;
+            border-bottom: none;
+        }
+
+        .flame {
+            position: absolute;
+            width: 12px;
+            height: 20px;
+            background: #ffc107;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            top: -20px;
+            left: -3px;
+            cursor: pointer;
+            animation: flicker 0.5s infinite alternate;
+            box-shadow: 0 0 10px #ffc107, 0 0 20px #ffc107;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        /* (NEW) Invisible tap target for mobile */
+        .flame::before {
+            content: '';
+            position: absolute;
+            width: 44px;
+            height: 44px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: transparent; /* Makes it invisible */
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .flame:hover {
+            transform: scale(1.2);
+        }
+
+        /* Flame animation */
+        @keyframes flicker {
+            0% { transform: scaleY(1) skew(2deg); opacity: 1; }
+            50% { transform: scaleY(0.9) skew(-2deg); opacity: 0.8; }
+            100% { transform: scaleY(1.1) skew(0deg); opacity: 1; }
+        }
+
+        /* Class to hide flame */
+        .flame-out {
+            display: none !important;
+        }
+
+        /* --- 12. (NEW) Gemini Feature Styles --- */
+        .gemini-btn {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem; /* Smaller than celebrate button */
+            font-weight: 600;
+            color: #ffffff;
+            background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Blue/Purple theme */
+            border: none;
+            border-radius: 50px;
+            padding: 12px 24px; /* Smaller padding */
+            margin-top: 25px; /* Space it out */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+            z-index: 10;
+            position: relative;
+        }
+
+        .gemini-btn:hover:not(:disabled) {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .gemini-btn:disabled {
+            opacity: 0.7;
+            cursor: wait;
+        }
+
+        .poem-box {
+            display: none; /* Hidden by default */
+            margin-top: 25px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            border: 1px solid #667eea; /* Match button color */
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            white-space: pre-wrap; /* Preserves newlines from the poem */
+            text-align: center; /* Center the poem text */
+        }
+
+        /* --- 13. (NEW) Countdown Page Styles --- */
+        #countdown-page {
+            /* This is visible by default */
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            text-align: center;
+            position: fixed; /* Use fixed to cover the whole screen */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            /* Using the same animated gradient as the hero page */
+            background-image: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f7b2c5 50%, #764ba2 75%, #667eea 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+            z-index: 5000; /* On top of everything */
+        }
+
+        #countdown-page h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: #f7b2c5;
+            text-shadow: 0 0 15px rgba(247, 178, 197, 0.7);
+            margin-bottom: 10px;
+        }
+
+        #countdown-page h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 30px;
+        }
+
+        #countdown-page p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        #timer {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+        }
+
+        .timer-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            min-width: 100px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .timer-box span {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .timer-box div {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+        
+        /* This will hide the main website initially */
+        #main-website {
+            display: none;
+        }
+
+        /* Responsive for countdown */
+        @media (max-width: 480px) {
+            #countdown-page h1 {
+                font-size: 3rem;
+            }
+            #countdown-page h2 {
+                font-size: 1.2rem;
+            }
+            #timer {
+                /* Changed to allow 2x2 grid */
+                gap: 10px;
+                width: 90%;
+            }
+            .timer-box {
+                /* Allow two boxes side-by-side */
+                min-width: 120px; 
+                flex-basis: 120px;
+                padding: 15px;
+            }
+            .timer-box span {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NEW: Countdown Page Container -->
+    <!-- This is shown first, on top of everything -->
+    <div id="countdown-page">
+        <!-- Ambient particles for the countdown page -->
+        <ul class="particle-container">
+            <li class="particle p1"></li> <li class="particle p2"></li>
+            <li class="particle p3"></li> <li class="particle p4"></li>
+            <li class="particle p5"></li> <li class="particle p6"></li>
+            <li class="particle p7"></li> <li class="particle p8"></li>
+            <li class="particle p9"></li> <li class="particle p10"></li>
+        </ul>
+        <h1>A Special Surprise for Sujata</h1>
+        <h2>From Pabitra</h2>
+        <p>Advance Happy Birthday, my love! ❤️<br>Your gift is unlocking soon...</p>
+        
+        <div id="timer">
+            <div class="timer-box"><span id="days">0</span><div>Days</div></div>
+            <div class="timer-box"><span id="hours">0</span><div>Hours</div></div>
+            <div class="timer-box"><span id="minutes">0</span><div>Minutes</div></div>
+            <div class="timer-box"><span id="seconds">0</span><div>Seconds</div></div>
+        </div>
+    </div>
+
+    <!-- NEW: Main Website Container -->
+    <!-- This is hidden by default and will be shown by the script -->
+    <div id="main-website">
+        
+        <!-- This canvas is where the "touch of love" hearts will be drawn -->
+        <canvas id="loveCanvas"></canvas>
+
+        <!-- Section 1: Hero Welcome -->
+        <section class="hero">
+            <ul class="particle-container">
+                <li class="particle p1"></li> <li class="particle p2"></li>
+                <li class="particle p3"></li> <li class="particle p4"></li>
+                <li class="particle p5"></li> <li class="particle p6"></li>
+                <li class="particle p7"></li> <li class="particle p8"></li>
+                <li class="particle p9"></li> <li class="particle p10"></li>
+            </ul>
+            <div class="content">
+                <!-- MODIFIED: Changed name to Sujata -->
+                <h1 data-aos="fade-up" data-aos-duration="1000">Happy Birthday, Sujata!</h1>
+                <!-- MODIFIED: Added Pabitra's name -->
+                <p data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">The world is so much brighter with you in it. - Pabitra</p>
+                <div class="scroll-down" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">Scroll Down &darr;</div>
+            </div>
+        </section>
+
+        <!-- Section 2: A Sweet Message -->
+        <section class="message">
+            <ul class="particle-container">
+                <li class="particle p1"></li> <li class="particle p2"></li>
+                <li class="particle p3"></li> <li class="particle p4"></li>
+                <li class="particle p5"></li> <li class="particle p6"></li>
+                <li class="particle p7"></li> <li class="particle p8"></li>
+                <li class="particle p9"></li> <li class="particle p10"></li>
+            </ul>
+            <div class="content-box" data-aos="fade-right">
+                <!-- 
+                    IMPORTANT: Replace this placeholder link with your own photo!
+                    Just put your photo (e.g., "us.jpg") in the same folder and change the 'src' below.
+                -->
+                <img src="https://placehold.co/350x350/f7b2c5/333333?text=Photo+of+Us" 
+                    alt="A photo of us" 
+                    class="photo"
+                    onerror="this.src='https://placehold.co/350x350/f7b2c5/333333?text=Photo+Error'; this.onerror=null;">
+            </div>
+            <div class="content-box" data-aos="fade-left">
+                <h2>A Little Note for You</h2>
+                <!-- IMPORTANT: Write your own personal message here -->
+                <p>
+                    Every single moment with you is a gift. From our late-night talks to our silly adventures, you make every day feel special. I'm so incredibly lucky to call you mine.
+                </p>
+
+                <!-- Gemini Poem Feature -->
+                <button id="geminiPoemBtn" class="gemini-btn" data-aos="fade-up" data-aos-delay="100">✨ A Poem For You</button>
+                <div id="poemBox" class="poem-box">
+                    <p id="poemText"></p>
+                </div>
+                <!-- End Gemini Feature -->
+
+            </div>
+        </section>
+        
+        <!-- Section 3: Memories -->
+        <section class="memories">
+            <ul class="particle-container">
+                <li class="particle p1"></li> <li class="particle p2"></li>
+                <li class="particle p3"></li> <li class="particle p4"></li>
+                <li class="particle p5"></li> <li class="particle p6"></li>
+                <li class="particle p7"></li> <li class="particle p8"></li>
+                <li class="particle p9"></li> <li class="particle p10"></li>
+            </ul>
+            <h2 data-aos="fade-up">Some of My Favorite Moments...</h2>
+            <div class="gallery">
+                <div class="memory-item" data-aos="fade-up" data-aos-delay="200">
+                    <!-- IMPORTANT: Replace this placeholder with your photo -->
+                    <img src="https://placehold.co/300x300/f7b2c5/333333?text=Memory+1" 
+                        alt="Memory 1"
+                        onerror="this.src='https://placehold.co/300x300/f7b2c5/333333?text=Photo+Error'; this.onerror=null;">
+                    <!-- IMPORTANT: Write a caption for the photo -->
+                    <p>That amazing trip to the beach!</p>
+                </div>
+                <div class="memory-item" data-aos="fade-up" data-aos-delay="400">
+                    <!-- IMPORTANT: Replace this placeholder with your photo -->
+                    <img src="https://placehold.co/300x300/f7b2c5/333333?text=Memory+2" 
+                        alt="Memory 2"
+                        onerror="this.src='https://placehold.co/300x300/f7b2c5/333333?text=Photo+Error'; this.onerror=null;">
+                    <!-- IMPORTANT: Write a caption for the photo -->
+                    <p>Our first concert together.</p>
+                </div>
+                <!-- You can copy and paste the 'memory-item' div to add more photos! -->
+            </div>
+        </section>
+
+        <!-- Section 4: Final Wish -->
+        <section class="wish">
+            <ul class="particle-container">
+                <li class="particle p1"></li> <li class="particle p2"></li>
+                <li class="particle p3"></li> <li class="particle p4"></li>
+                <li class="particle p5"></li> <li class="particle p6"></li>
+                <li class="particle p7"></li> <li class="particle p8"></li>
+                <li class="particle p9"></li> <li class="particle p10"></li>
+            </ul>
+            <div class="content">
+                <h2 data-aos="zoom-in">My Wish For You</h2>
+                <!-- IMPORTANT: Write your final birthday wish -->
+                <p data-aos="zoom-in" data-aos-delay="200">
+                    May your birthday be as beautiful, vibrant, and wonderful as you are. 
+                    I hope all your dreams come true today and always.
+                </p>
+                <h3 data-aos="zoom-in" data-aos-delay="400">
+                    With all my love,<br>
+                    <!-- MODIFIED: Changed name to Pabitra -->
+                    - Pabitra
+                </h3>
+                
+                <!-- Celebrate Button -->
+                <button id="celebrateBtn" class="celebrate-btn" data-aos="zoom-in" data-aos-delay="600">A Birthday Surprise! 🎂</button>
+            </div>
+        </section>
+
+        <!-- Cake Modal -->
+        <div id="cakeModal" class="cake-modal">
+            <div class="modal-content">
+                <span id="closeModalBtn" class="close-btn">&times;</span>
+                <h2 id="modalTitle">Make a wish...</h2>
+                <div class="cake-container">
+                    <div class="cake" id="birthdayCake">
+                        <div class="layer layer-top"></div>
+                        <div class="layer layer-middle"></div>
+                        <div class="layer layer-bottom"></div>
+                        <div class="icing"></div>
+                        <div class="candle" style="left: 30%;"><div class="flame" data-flame="1"></div></div>
+                        <div class="candle" style="left: 48%;"><div class="flame" data-flame="2"></div></div>
+                        <div class="candle" style="left: 66%;"><div class="flame" data-flame="3"></div></div>
+                    </div>
+                </div>
+                <p id="modalInstruction">Click the flames to blow them out!</p>
+            </div>
+        </div>
+        
+    </div> <!-- End of #main-website -->
+
+    
+    <script>
+        // This script block contains ALL the JavaScript logic.
+        // It handles both the countdown and running the main website's animations.
+
+        /**
+         * This function contains ALL the JavaScript from your original file.
+         * It will be called ONLY when the main website is ready to be shown.
+         */
+        function initializeMainWebsite() {
+            
+            // --- 1. Initialize the AOS (Animate on Scroll) library ---
+            AOS.init({
+                duration: 1000, // Animation duration in milliseconds
+                once: true,     // Whether animation should happen only once
+                offset: 100,    // Triggers animation a bit before it's in view
+            });
+
+            // --- 2. "Touch of Love" Heart Animation ---
+            const canvas = document.getElementById('loveCanvas');
+            
+            // Safety check: If the canvas isn't found, stop this function.
+            if (!canvas) {
+                console.error("loveCanvas not found. Main website script cannot initialize.");
+                return; 
+            }
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particles = [];
+            
+            const heartColors = [
+                '#f7b2c5', // soft pink
+                '#f78fa7', // medium pink
+                '#f06292', // bright pink
+                '#e91e63'  // hot pink
+            ];
+            
+            const confettiColors = [
+                '#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5',
+                '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50',
+                '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722'
+            ];
+
+            // Function to draw a single heart shape
+            function drawHeart(x, y, size, opacity, color) {
+                let safeColor = color.startsWith('rgb') ? color : `rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, ${opacity})`;
+                if (color.startsWith('rgb') && color.includes(',')) {
+                    safeColor = color.replace(')', `, ${opacity})`).replace('rgb', 'rgba');
+                }
+                ctx.fillStyle = safeColor;
+                ctx.beginPath();
+                ctx.moveTo(x, y + size / 4);
+                ctx.quadraticCurveTo(x, y, x + size / 4, y);
+                ctx.quadraticCurveTo(x + size / 2, y, x + size / 2, y + size / 4);
+                ctx.quadraticCurveTo(x + size / 2, y, x + (size * 3) / 4, y);
+                ctx.quadraticCurveTo(x + size, y, x + size, y + size / 4);
+                ctx.quadraticCurveTo(x + size, y + size / 2, x + (size * 3) / 4, y + (size * 3) / 4);
+                ctx.lineTo(x + size / 2, y + size);
+                ctx.lineTo(x + size / 4, y + (size * 3) / 4);
+                ctx.quadraticCurveTo(x, y + size / 2, x, y + size / 4);
+                ctx.fill();
+                ctx.closePath();
+            }
+            
+            // Function to draw a single confetti particle
+            function drawConfetti(p) {
+                ctx.save(); // Save the current canvas state
+                ctx.translate(p.x, p.y); // Move to the particle's position
+                ctx.rotate(p.angle); // Rotate the particle
+                
+                let safeColor = p.color.startsWith('rgb') ? p.color : `rgba(${parseInt(p.color.slice(1, 3), 16)}, ${parseInt(p.color.slice(3, 5), 16)}, ${parseInt(p.color.slice(5, 7), 16)}, ${p.opacity})`;
+                if (p.color.startsWith('rgb') && p.color.includes(',')) {
+                    safeColor = p.color.replace(')', `, ${p.opacity})`).replace('rgb', 'rgba');
+                }
+                ctx.fillStyle = safeColor;
+                
+                ctx.fillRect(-p.size / 2, -p.sizeH / 2, p.size, p.sizeH);
+                ctx.restore(); // Restore the canvas state
+            }
+
+            // Function to create a burst of hearts at a specific location
+            function createHearts(event) {
+                let x = event.clientX || (event.touches && event.touches[0].clientX);
+                let y = event.clientY || (event.touches && event.touches[0].clientY);
+                
+                if (x === undefined || y === undefined) return;
+
+                const heartCount = 20;
+                for (let i = 0; i < heartCount; i++) {
+                    particles.push({
+                        x: x, y: y,
+                        size: Math.random() * 15 + 5, 
+                        speedX: Math.random() * 4 - 2, 
+                        speedY: Math.random() * 4 - 2, 
+                        opacity: 1,
+                        life: 1, 
+                        color: heartColors[Math.floor(Math.random() * heartColors.length)], 
+                        type: 'heart' 
+                    });
+                }
+            }
+            
+            // Function to create a burst of confetti
+            function triggerConfetti() {
+                const confettiCount = 200; // Lots of confetti!
+                const explosionX = canvas.width / 2;
+                const explosionY = canvas.height / 2;
+
+                for (let i = 0; i < confettiCount; i++) {
+                    const angle = Math.random() * Math.PI * 2; // Random angle
+                    const speed = Math.random() * 8 + 4; // Random speed (4-12)
+                    
+                    particles.push({
+                        x: explosionX, y: explosionY,
+                        size: Math.random() * 8 + 4, // Random width
+                        sizeH: Math.random() * 6 + 4, // Random height
+                        speedX: Math.cos(angle) * speed,
+                        speedY: Math.sin(angle) * speed - 4, // Add an upward boost
+                        opacity: 1,
+                        life: 3.0, // Lives longer
+                        color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+                        type: 'confetti', 
+                        angle: Math.random() * Math.PI * 2, // Random rotation
+                        spin: Math.random() * 0.2 - 0.1 // Random spin speed
+                    });
+                }
+            }
+
+            // The main animation loop that runs every frame
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                for (let i = 0; i < particles.length; i++) {
+                    let p = particles[i];
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    p.speedY += 0.02; // gravity
+                    p.speedX *= 0.995; // drag
+                    p.speedY *= 0.995; // drag
+                    p.life -= 0.005; // fade out
+                    p.opacity -= 0.005; // fade out
+
+                    if (p.type === 'confetti') {
+                        p.angle += p.spin;
+                    }
+
+                    if (p.life > 0) {
+                        if (p.type === 'heart') {
+                            drawHeart(p.x, p.y, p.size, p.opacity, p.color);
+                        } else if (p.type === 'confetti') {
+                            drawConfetti(p);
+                        }
+                    } else {
+                        particles.splice(i, 1);
+                        i--; // Adjust index after removal
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+
+            document.body.style.pointerEvents = 'auto';
+            window.addEventListener('click', createHearts);
+            window.addEventListener('touchstart', createHearts);
+            animate();
+
+            // Resize canvas when window resizes
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+
+            // Helper to prevent double events on touch
+            function handleInteraction(event, action) {
+                event.preventDefault(); // Stop click from firing after touch
+                action(event); // Run the desired function
+            }
+
+            // --- 3. Gemini Poem Feature ---
+            const geminiPoemBtn = document.getElementById('geminiPoemBtn');
+            const poemBox = document.getElementById('poemBox');
+            const poemText = document.getElementById('poemText');
+
+            geminiPoemBtn.addEventListener('click', (e) => handleInteraction(e, getGeminiPoem));
+            geminiPoemBtn.addEventListener('touchstart', (e) => handleInteraction(e, getGeminiPoem));
+
+            async function getGeminiPoem() {
+                geminiPoemBtn.disabled = true;
+                geminiPoemBtn.innerText = "Writing...";
+                poemBox.style.display = 'none'; 
+                poemText.innerText = "";
+
+                const apiKey = ""; // Leave as-is, will be populated by the environment
+                const apiUrl = `https://generativanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                
+                // MODIFIED: Changed name to Sujata
+                const userPrompt = "Write a romantic long-distance love poem for my girlfriend Sujata's birthday. The tone should be sweet, personal, and celebratory, reflecting our love despite the distance.";
+
+                const payload = {
+                    contents: [{ parts: [{ text: userPrompt }] }]
+                };
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API Error: ${response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    const candidate = result.candidates?.[0];
+                    let generatedText = "Could not generate a poem right now, but my love for you is 100% real! ❤️"; // Fallback
+
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        generatedText = candidate.content.parts[0].text;
+                    }
+                    
+                    poemText.innerText = generatedText;
+                    poemBox.style.display = 'block';
+                    AOS.refreshHard(); // Make sure the new box animates in
+
+                } catch (error) {
+                    console.error("Gemini API call failed:", error);
+                    poemText.innerText = "There was an error writing the poem... but I still love you! ❤️";
+                    poemBox.style.display = 'block';
+                    AOS.refreshHard();
+                } finally {
+                    geminiPoemBtn.disabled = false;
+                    geminiPoemBtn.innerText = "✨ Write Another Poem";
+                }
+            }
+
+            // --- 4. Birthday Cake Celebration ---
+            const celebrateBtn = document.getElementById('celebrateBtn');
+            const cakeModal = document.getElementById('cakeModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const flames = document.querySelectorAll('.flame');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalInstruction = document.getElementById('modalInstruction');
+            const birthdayCake = document.getElementById('birthdayCake'); 
+            
+            let candlesOut = 0;
+            
+            const synth = new Tone.Synth().toDestination();
+            const birthdayMelody = [
+                { note: 'G4', duration: '8n', time: '0:0' }, { note: 'G4', duration: '8n', time: '0:1' },
+                { note: 'A4', duration: '4n', time: '0:2' }, { note: 'G4', duration: '4n', time: '0:3' },
+                { note: 'C5', duration: '4n', time: '1:0' }, { note: 'B4', duration: '2n', time: '1:2' },
+                { note: 'G4', duration: '8n', time: '2:0' }, { note: 'G4', duration: '8n', time: '2:1' },
+                { note: 'A4', duration: '4n', time: '2:2' }, { note: 'G4', duration: '4n', time: '2:3' },
+                { note: 'D5', duration: '4n', time: '3:0' }, { note: 'C5', duration: '2n', time: '3:2' },
+                { note: 'G4', duration: '8n', time: '4:0' }, { note: 'G4', duration: '8n', time: '4:1' },
+                { note: 'G5', duration: '4an', time: '4:2' }, { note: 'E5', duration: '4n', time: '4:3' },
+                { note: 'C5', duration: '4n', time: '5:0' }, { note: 'B4', duration: '4n', time: '5:1' },
+                { note: 'A4', duration: '2n', time: '5:2' },
+                { note: 'F5', duration: '8n', time: '6:0' }, { note: 'F5', duration: '8n', time: '6:1' },
+                { note: 'E5', duration: '4n', time: '6:2' }, { note: 'C5', duration: '4n', time: '6:3' },
+                { note: 'D5', duration: '4n', time: '7:0' }, { note: 'C5', duration: '2n', time: '7:2' },
+            ];
+            
+            const birthdaySong = new Tone.Part((time, value) => {
+                synth.triggerAttackRelease(value.note, value.duration, time);
+            }, birthdayMelody);
+            
+            birthdaySong.loop = true;
+            birthdaySong.loopEnd = '8m'; 
+            Tone.Transport.bpm.value = 100; 
+
+            // Create a named function for cake cutting
+            function handleCakeCutInteraction(event) {
+                handleInteraction(event, cutTheCake);
+            }
+
+            // Function to open the cake modal
+            async function openCakeModal() {
+                // Must start Tone.js on a user gesture
+                await Tone.start();
+                
+                // Reset state
+                modalTitle.innerText = "Make a wish...";
+                modalInstruction.innerText = "Click the flames to blow them out!";
+                flames.forEach(f => f.classList.remove('flame-out'));
+                birthdayCake.classList.remove('clickable'); 
+                birthdayCake.classList.remove('cut'); 
+                birthdayCake.removeEventListener('click', handleCakeCutInteraction); 
+                birthdayCake.removeEventListener('touchstart', handleCakeCutInteraction);
+                candlesOut = 0;
+                
+                // Use classList to show modal
+                cakeModal.classList.add('open');
+                
+                // Start the music
+                Tone.Transport.start();
+                birthdaySong.start(0);
+            }
+
+            // Function to close the cake modal
+            function closeCakeModal() {
+                // Use classList to hide modal
+                cakeModal.classList.remove('open');
+                // Stop the music
+                Tone.Transport.stop();
+                birthdaySong.stop(0);
+            }
+
+            // Function to handle the cake cutting
+            function cutTheCake() {
+                // Add cut animation
+                birthdayCake.classList.add('cut');
+                birthdayCake.classList.remove('clickable'); // No more clicks
+
+                // Final message
+                modalTitle.innerText = "Happy Birthday, Love!";
+                modalInstruction.innerText = "Your wish is on its way... ❤️";
+                
+                // Remove the named listener
+                birthdayCake.removeEventListener('click', handleCakeCutInteraction);
+                birthdayCake.removeEventListener('touchstart', handleCakeCutInteraction);
+                
+                // Wait 500ms, then close modal & fire confetti
+                setTimeout(() => {
+                    closeCakeModal();
+                    triggerConfetti();
+                }, 500);
+            }
+
+            // Event listener for the celebrate button
+            celebrateBtn.addEventListener('click', (e) => handleInteraction(e, openCakeModal));
+            celebrateBtn.addEventListener('touchstart', (e) => handleInteraction(e, openCakeModal));
+            
+            // Event listener for the close button
+            closeModalBtn.addEventListener('click', (e) => handleInteraction(e, closeCakeModal));
+            closeModalBtn.addEventListener('touchstart', (e) => handleInteraction(e, closeCakeModal));
+
+            // Function to handle blowing out a flame
+            function blowOutFlame(event) {
+                // 'this' will be the flame element that was clicked/touched
+                if (!this.classList.contains('flame-out')) {
+                    this.classList.add('flame-out');
+                    candlesOut++;
+                }
+                
+                // Check if all candles are out
+                if (candlesOut === flames.length) {
+                    modalTitle.innerText = "Wish Made!";
+                    modalInstruction.innerText = "Now, tap the cake to cut it!";
+                    
+                    birthdayCake.classList.add('clickable');
+                    // Add listeners using the *named function*
+                    birthdayCake.addEventListener('click', handleCakeCutInteraction);
+                    birthdayCake.addEventListener('touchstart', handleCakeCutInteraction);
+                }
+            }
+            
+            // Event listeners for each flame
+            flames.forEach(flame => {
+                flame.addEventListener('click', (e) => handleInteraction(e, blowOutFlame.bind(flame)));
+                flame.addEventListener('touchstart', (e) => handleInteraction(e, blowOutFlame.bind(flame)));
+            });
+
+        } // --- End of initializeMainWebsite() function ---
+
+
+        /**
+         * --- NEW: Countdown and Page-Switching Logic ---
+         * This runs as soon as the page is loaded.
+         */
+        window.addEventListener('DOMContentLoaded', (event) => {
+
+            const countdownPage = document.getElementById('countdown-page');
+            const mainWebsite = document.getElementById('main-website');
+
+            // Set the date for Sujata's birthday: 23rd December 2025
+            // Note: JavaScript months are 0-11, so December is 11.
+            const birthday = new Date("2025-12-23T00:00:00").getTime();
+
+            // Flag to ensure initialization only happens once
+            let isMainSiteInitialized = false;
+
+            // Function to show the main site and run its JS
+            function showMainSite() {
+                if (isMainSiteInitialized) return; // Don't run twice
+
+                countdownPage.style.display = 'none';
+                mainWebsite.style.display = 'block';
+                
+                // Now that the main site is visible, run its JavaScript
+                // We add a small delay to let the page render first
+                setTimeout(initializeMainWebsite, 100); 
+                isMainSiteInitialized = true;
+            }
+
+            // Update the count down every 1 second
+            const countdownInterval = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = birthday - now;
+
+                // If the count down is finished
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    showMainSite();
+                    // Clear the timer display
+                    document.getElementById("days").innerText = "0";
+                    document.getElementById("hours").innerText = "0";
+                    document.getElementById("minutes").innerText = "0";
+                    document.getElementById("seconds").innerText = "0";
+                    return; // Stop the function
+                }
+
+                // Time calculations
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display the result
+                document.getElementById("days").innerText = days;
+                document.getElementById("hours").innerText = hours;
+                document.getElementById("minutes").innerText = minutes;
+                document.getElementById("seconds").innerText = seconds;
+
+            }, 1000);
+
+            // Also check on initial load (in case the date has already passed)
+            const now = new Date().getTime();
+            if (birthday - now < 0) {
+                clearInterval(countdownInterval); // Stop the timer just in case
+                showMainSite();
+            }
+
+        }); // --- End of NEW DOMContentLoaded wrapper ---
+
+    </script>
+</body>
+</html>
