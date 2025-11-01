@@ -286,6 +286,7 @@
             pointer-events: none; /* Make sure it doesn't block clicks */
         }
 
+        /* (NEW) Particle styles that were missing */
         .particle {
             position: absolute;
             display: block;
@@ -393,7 +394,6 @@
             transition: opacity 0.4s ease, visibility 0.4s ease;
         }
 
-        /* This class now controls showing the modal */
         .cake-modal.open {
             opacity: 1;
             visibility: visible;
@@ -451,15 +451,13 @@
             bottom: 0;
             left: 10px;
             border-radius: 10px 10px 0 0;
-            transition: transform 0.1s ease; /* (NEW) Add transition for cut effect */
+            transition: transform 0.1s ease; 
         }
 
-        /* (NEW) Class to make cake clickable */
         .cake.clickable {
             cursor: pointer;
         }
 
-        /* (NEW) Simple "cut" animation */
         .cake.cut {
             transform: scale(0.98);
         }
@@ -510,7 +508,6 @@
             z-index: 2;
         }
 
-        /* (NEW) Invisible tap target for mobile */
         .flame::before {
             content: '';
             position: absolute;
@@ -519,7 +516,7 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            background-color: transparent; /* Makes it invisible */
+            background-color: transparent; 
             border-radius: 50%;
             z-index: -1;
         }
@@ -528,14 +525,12 @@
             transform: scale(1.2);
         }
 
-        /* Flame animation */
         @keyframes flicker {
             0% { transform: scaleY(1) skew(2deg); opacity: 1; }
             50% { transform: scaleY(0.9) skew(-2deg); opacity: 0.8; }
             100% { transform: scaleY(1.1) skew(0deg); opacity: 1; }
         }
 
-        /* Class to hide flame */
         .flame-out {
             display: none !important;
         }
@@ -584,21 +579,17 @@
 
         /* --- 13. (NEW) Countdown Page Styles --- */
         #countdown-page {
-            /* This is visible by default */
-            display: flex; 
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            padding: 40px 20px;
-            text-align: center;
-            position: fixed; /* Use fixed to cover the whole screen */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             overflow: hidden;
-            /* Using the same animated gradient as the hero page */
+            /* MODIFICATION: Animated gradient background */
             background-image: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f7b2c5 50%, #764ba2 75%, #667eea 100%);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
@@ -688,6 +679,16 @@
     </style>
 </head>
 <body>
+
+    <!-- NEW: Welcome Modal (for starting music) -->
+    <!-- This modal appears after the countdown finishes -->
+    <div id="welcome-modal" class="cake-modal" style="z-index: 6000;"> <!-- Sits on top of countdown -->
+        <div class="modal-content">
+            <h2 style="font-family: 'Great Vibes', cursive; font-size: 3rem; color: #f7b2c5;">The Wait is Over!</h2>
+            <p style="font-size: 1.2rem; margin-top: 20px;">Your surprise is ready, Sujata! ❤️</p>
+            <button id="start-surprise-btn" class="celebrate-btn" style="margin-top: 30px;">Click to See!</button>
+        </div>
+    </div>
 
     <!-- NEW: Countdown Page Container -->
     <!-- This is shown first, on top of everything -->
@@ -788,7 +789,7 @@
                     <!-- IMPORTANT: Replace this placeholder with your photo -->
                     <img src="https://placehold.co/300x300/f7b2c5/333333?text=Memory+1" 
                         alt="Memory 1"
-                        onerror="this.src='https://placehold.co/300x300/f7b2c5/333333?text=Photo+Error'; this.onerror=null;">
+                        onerror="this.src='https://placehold.co/300x300/f7b2c5/333333?text=Memory+1'; this.onerror=null;">
                     <!-- IMPORTANT: Write a caption for the photo -->
                     <p>That amazing trip to the beach!</p>
                 </div>
@@ -796,7 +797,7 @@
                     <!-- IMPORTANT: Replace this placeholder with your photo -->
                     <img src="https://placehold.co/300x300/f7b2c5/333333?text=Memory+2" 
                         alt="Memory 2"
-                        onerror="this.src='https://placehold.co/300x300/f7b2c5/333333?text=Photo+Error'; this.onerror=null;">
+                        onerror="this.src='https://placehold.co/300x300/f7b2c5/333333?text=Memory+2'; this.onerror=null;">
                     <!-- IMPORTANT: Write a caption for the photo -->
                     <p>Our first concert together.</p>
                 </div>
@@ -862,6 +863,36 @@
          * This function contains ALL the JavaScript from your original file.
          * It will be called ONLY when the main website is ready to be shown.
          */
+        
+        // MOVED: Define synth and song here to be accessible by multiple functions
+        const synth = new Tone.Synth().toDestination();
+        const birthdayMelody = [
+            { note: 'G4', duration: '8n', time: '0:0' }, { note: 'G4', duration: '8n', time: '0:1' },
+            { note: 'A4', duration: '4n', time: '0:2' }, { note: 'G4', duration: '4n', time: '0:3' },
+            { note: 'C5', duration: '4n', time: '1:0' }, { note: 'B4', duration: '2n', time: '1:2' },
+
+            { note: 'G4', duration: '8n', time: '2:0' }, { note: 'G4', duration: '8n', time: '2:1' },
+            { note: 'A4', duration: '4n', time: '2:2' }, { note: 'G4', duration: '4n', time: '2:3' },
+            { note: 'D5', duration: '4n', time: '3:0' }, { note: 'C5', duration: '2n', time: '3:2' },
+
+            { note: 'G4', duration: '8n', time: '4:0' }, { note: 'G4', duration: '8n', time: '4:1' },
+            { note: 'G5', duration: '4an', time: '4:2' }, { note: 'E5', duration: '4n', time: '4:3' },
+            { note: 'C5', duration: '4n', time: '5:0' }, { note: 'B4', duration: '4n', time: '5:1' },
+            { note: 'A4', duration: '2n', time: '5:2' },
+
+            { note: 'F5', duration: '8n', time: '6:0' }, { note: 'F5', duration: '8n', time: '6:1' },
+            { note: 'E5', duration: '4n', time: '6:2' }, { note: 'C5', duration: '4n', time: '6:3' },
+            { note: 'D5', duration: '4n', time: '7:0' }, { note: 'C5', duration: '2n', time: '7:2' },
+        ];
+        
+        const birthdaySong = new Tone.Part((time, value) => {
+            synth.triggerAttackRelease(value.note, value.duration, time);
+        }, birthdayMelody);
+        
+        birthdaySong.loop = true;
+        birthdaySong.loopEnd = '8m'; 
+        Tone.Transport.bpm.value = 100; 
+
         function initializeMainWebsite() {
             
             // --- 1. Initialize the AOS (Animate on Scroll) library ---
@@ -1101,30 +1132,8 @@
             
             let candlesOut = 0;
             
-            const synth = new Tone.Synth().toDestination();
-            const birthdayMelody = [
-                { note: 'G4', duration: '8n', time: '0:0' }, { note: 'G4', duration: '8n', time: '0:1' },
-                { note: 'A4', duration: '4n', time: '0:2' }, { note: 'G4', duration: '4n', time: '0:3' },
-                { note: 'C5', duration: '4n', time: '1:0' }, { note: 'B4', duration: '2n', time: '1:2' },
-                { note: 'G4', duration: '8n', time: '2:0' }, { note: 'G4', duration: '8n', time: '2:1' },
-                { note: 'A4', duration: '4n', time: '2:2' }, { note: 'G4', duration: '4n', time: '2:3' },
-                { note: 'D5', duration: '4n', time: '3:0' }, { note: 'C5', duration: '2n', time: '3:2' },
-                { note: 'G4', duration: '8n', time: '4:0' }, { note: 'G4', duration: '8n', time: '4:1' },
-                { note: 'G5', duration: '4an', time: '4:2' }, { note: 'E5', duration: '4n', time: '4:3' },
-                { note: 'C5', duration: '4n', time: '5:0' }, { note: 'B4', duration: '4n', time: '5:1' },
-                { note: 'A4', duration: '2n', time: '5:2' },
-                { note: 'F5', duration: '8n', time: '6:0' }, { note: 'F5', duration: '8n', time: '6:1' },
-                { note: 'E5', duration: '4n', time: '6:2' }, { note: 'C5', duration: '4n', time: '6:3' },
-                { note: 'D5', duration: '4n', time: '7:0' }, { note: 'C5', duration: '2n', time: '7:2' },
-            ];
-            
-            const birthdaySong = new Tone.Part((time, value) => {
-                synth.triggerAttackRelease(value.note, value.duration, time);
-            }, birthdayMelody);
-            
-            birthdaySong.loop = true;
-            birthdaySong.loopEnd = '8m'; 
-            Tone.Transport.bpm.value = 100; 
+            // REMOVED: Synth and song definitions were moved outside this function
+            // to be globally accessible for the welcome modal.
 
             // Create a named function for cake cutting
             function handleCakeCutInteraction(event) {
@@ -1229,11 +1238,15 @@
 
             const countdownPage = document.getElementById('countdown-page');
             const mainWebsite = document.getElementById('main-website');
+            // NEW: Get the welcome modal and its button
+            const welcomeModal = document.getElementById('welcome-modal');
+            const startSurpriseBtn = document.getElementById('start-surprise-btn');
 
             // Set the date for Sujata's birthday: 23rd December 2025
             // Note: JavaScript months are 0-11, so December is 11.
-            const birthday = new Date("2025-12-23T00:00:00").getTime();
-
+            // MODIFICATION: Set to 30 seconds for trial
+            //const birthday = new Date().getTime() + 30 * 1000; // 30 seconds from now
+const birthday = new Date('2025-12-23T00:00:00');
             // Flag to ensure initialization only happens once
             let isMainSiteInitialized = false;
 
@@ -1241,14 +1254,40 @@
             function showMainSite() {
                 if (isMainSiteInitialized) return; // Don't run twice
 
+                // Hide the countdown
                 countdownPage.style.display = 'none';
+                
+                // Show the main site structure (it's still hidden by AOS)
                 mainWebsite.style.display = 'block';
                 
-                // Now that the main site is visible, run its JavaScript
-                // We add a small delay to let the page render first
-                setTimeout(initializeMainWebsite, 100); 
-                isMainSiteInitialized = true;
+                // NEW: Show the welcome modal instead of starting AOS/music
+                welcomeModal.classList.add('open');
+                
+                // We will call initializeMainWebsite() AFTER the user clicks the welcome button
             }
+
+            // NEW: Add listener for the welcome modal button
+            startSurpriseBtn.addEventListener('click', async () => {
+                if (isMainSiteInitialized) return; // Prevent double-clicks
+                isMainSiteInitialized = true; // Set flag
+                
+                // Start Audio
+                try {
+                    await Tone.start();
+                    Tone.Transport.start();
+                    birthdaySong.start(0);
+                } catch (e) {
+                    console.error("Audio failed to start:", e);
+                }
+                
+                // Hide Modal
+                welcomeModal.classList.remove('open');
+                
+                // NOW initialize the main site's animations
+                // We add a small delay to let the modal fade out
+                setTimeout(initializeMainWebsite, 100); 
+            });
+
 
             // Update the count down every 1 second
             const countdownInterval = setInterval(function() {
