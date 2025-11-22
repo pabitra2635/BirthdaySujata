@@ -23,6 +23,12 @@
 
     <style>
         /* --- 1. General Styles --- */
+        :root {
+            /* MODIFIED: A more vibrant pink for better visibility */
+            --primary-pink: #ff80ab; 
+            --dark-bg: #1a1a1a;
+            --darker-bg: #2c2c2c;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -37,9 +43,32 @@
         body {
             /* We'll use the 'Poppins' font for most text */
             font-family: 'Poppins', sans-serif;
-            background-color: #1a1a1a; /* Dark background for a cozy feel */
+            background-color: var(--dark-bg); /* Dark background for a cozy feel */
             color: #ffffff; /* White text */
             overflow-x: hidden; /* Prevents accidental horizontal scrolling */
+        }
+
+        /* --- NEW: General Animations --- */
+        @keyframes pulse-soft {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes pulse-strong {
+            0% { transform: scale(1); filter: brightness(100%); }
+            50% { transform: scale(1.1); filter: brightness(120%); }
+            100% { transform: scale(1); filter: brightness(100%); }
+        }
+        
+        @keyframes bounceIn {
+            0%, 20%, 40%, 60%, 80%, 100% { transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); }
+            0% { opacity: 0; transform: scale3d(.3, .3, .3); }
+            20% { transform: scale3d(1.1, 1.1, 1.1); }
+            40% { transform: scale3d(.9, .9, .9); }
+            60% { opacity: 1; transform: scale3d(1.03, 1.03, 1.03); }
+            80% { transform: scale3d(.97, .97, .97); }
+            100% { opacity: 1; transform: scale3d(1, 1, 1); }
         }
 
         /* --- 2. The "Touch of Love" Canvas --- */
@@ -71,17 +100,10 @@
 
         /* --- 4. Hero Section (First Screen) --- */
         .hero {
-            /* NEW: Animated gradient background */
-            background-image: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f7b2c5 50%, #764ba2 75%, #667eea 100%);
+            /* NEW: Animated gradient background - slightly deeper colors for contrast */
+            background-image: linear-gradient(135deg, #4a63d4 0%, #5d3a8a 25%, #d67a96 50%, #5d3a8a 75%, #4a63d4 100%);
             background-size: 400% 400%; /* Make background larger than viewport */
             animation: gradientShift 15s ease infinite; /* Animate the background position */
-            
-            /* IMPORTANT: To use your own background image:
-            1. Put your image file (e.g., "our_photo.jpg") in the same folder as this HTML file.
-            2. Delete or comment out the 'background-image' line above.
-            3. Uncomment the line below and change 'background.jpg' to your file's name.
-            */
-            /* background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('background.jpg'); */
             
             background-size: cover;
             background-position: center;
@@ -97,13 +119,17 @@
             font-family: 'Great Vibes', cursive;
             font-size: 5rem; /* (MODIFIED) Slightly smaller base font */
             margin-bottom: 20px;
-            color: #f7b2c5; /* A soft, celebratory pink */
-            text-shadow: 0 0 15px rgba(247, 178, 197, 0.7);
+            /* MODIFIED: Use vibrant pink variable */
+            color: var(--primary-pink); 
+            text-shadow: 0 0 20px rgba(255, 128, 171, 0.8); /* Stronger glow */
+            /* NEW: Add pulse animation */
+            animation: pulse-soft 3s infinite ease-in-out;
         }
 
         .hero p {
-            font-size: 1.3rem; /* (MODIFIED) Slightly smaller base font */
+            font-size: 1.5rem; /* MODIFIED: Larger font for better visibility */
             font-weight: 400;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Added shadow for readability */
         }
 
         /* This is the little "Scroll Down" arrow */
@@ -139,7 +165,7 @@
             flex-direction: row; /* Puts image and text side-by-side */
             flex-wrap: wrap; /* Allows items to stack on smaller screens */
             gap: 40px;
-            background-color: #2c2c2c; /* A slightly lighter dark color */
+            background-color: var(--darker-bg); /* A slightly lighter dark color */
         }
 
         .content-box {
@@ -152,8 +178,15 @@
         .content-box h2 {
             font-family: 'Great Vibes', cursive;
             font-size: 3rem;
-            color: #f7b2c5;
+            /* MODIFIED: Use vibrant pink variable */
+            color: var(--primary-pink);
             margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 128, 171, 0.5);
+        }
+        
+        .content-box p {
+            font-size: 1.1rem;
+            line-height: 1.8;
         }
 
         .photo {
@@ -161,21 +194,25 @@
             max-width: 350px;
             border-radius: 15px; /* Rounded corners */
             border: 5px solid #ffffff;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.4s ease; /* Smoother transition */
         }
         .photo:hover {
-            transform: scale(1.05); /* Slight zoom on hover */
+            transform: scale(1.05) rotate(-2deg); /* Slight zoom and tilt */
+            border-color: var(--primary-pink); /* MODIFIED: Pink border on hover */
+            box-shadow: 0 15px 40px rgba(255, 128, 171, 0.4); /* Pink glow */
         }
 
         /* --- 6. Memories Section --- */
         .memories h2 {
             font-family: 'Great Vibes', cursive;
             font-size: 3.5rem;
-            color: #f7b2c5;
+            /* MODIFIED: Use vibrant pink variable */
+            color: var(--primary-pink);
             margin-bottom: 40px;
             position: relative; /* Add this */
             z-index: 2;         /* Add this */
+            text-shadow: 0 0 10px rgba(255, 128, 171, 0.5);
         }
 
         .gallery {
@@ -192,22 +229,25 @@
             max-width: 300px;
             border-radius: 10px;
             border: 3px solid #ffffff;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
         .memory-item img:hover {
-            transform: scale(1.05) rotate(2deg); /* Zooms and slightly rotates */
-            box-shadow: 0 10px 20px rgba(247, 178, 197, 0.2);
+            transform: scale(1.08) rotate(3deg); /* Zooms and slightly rotates */
+            border-color: var(--primary-pink); /* MODIFIED: Pink border */
+            box-shadow: 0 15px 30px rgba(255, 128, 171, 0.5); /* Stronger pink glow */
         }
 
         .memory-item p {
-            margin-top: 10px;
+            margin-top: 15px;
             font-style: italic;
+            font-size: 1.1rem;
         }
 
         /* --- 7. Final Wish Section --- */
         .wish {
-            background-color: #2c2c2c;
+            background-color: var(--darker-bg);
         }
         .wish .content {
             position: relative; /* Add this */
@@ -216,18 +256,22 @@
         .wish h2 {
             font-family: 'Great Vibes', cursive;
             font-size: 4rem;
-            color: #f7b2c5;
+            /* MODIFIED: Use vibrant pink variable */
+            color: var(--primary-pink);
+            text-shadow: 0 0 15px rgba(255, 128, 171, 0.6);
         }
         .wish p {
-            font-size: 1.2rem;
+            font-size: 1.3rem; /* Larger text */
             max-width: 600px;
-            margin: 20px 0;
+            margin: 30px 0;
+            line-height: 1.6;
         }
         .wish h3 {
             margin-top: 30px;
             font-weight: 400;
             font-style: italic;
-            font-size: 1.5rem;
+            font-size: 1.8rem; /* Larger text */
+            color: var(--primary-pink);
         }
 
         /* --- 8. Responsive Design (for Mobile) --- */
@@ -266,7 +310,7 @@
             /* (NEW) Make modal padding smaller on phones */
             .modal-content {
                 padding: 20px; 
-                width: 90%; /* Ensure it doesn't touch edges */
+                width: 95%; /* Ensure it doesn't touch edges */
             }
             /* (NEW) Make modal title smaller on phones */
             .modal-content h2 {
@@ -293,7 +337,8 @@
             list-style: none; /* Remove bullet points */
             width: 20px;
             height: 20px;
-            background-color: rgba(247, 178, 197, 0.15); /* Soft pink, semi-transparent */
+            /* MODIFIED: brighter pink particles */
+            background-color: rgba(255, 128, 171, 0.3); 
             border-radius: 50%;
             bottom: -150px; /* Start off-screen */
             animation: floatUp 25s infinite linear;
@@ -312,68 +357,42 @@
         }
 
         /* Create variations for different particles */
-        .particle-container .p1 {
-            left: 10%; width: 15px; height: 15px;
-            animation-delay: 0s; animation-duration: 20s;
-        }
-        .particle-container .p2 {
-            left: 20%; width: 25px; height: 25px;
-            animation-delay: 2s; animation-duration: 30s;
-        }
-        .particle-container .p3 {
-            left: 30%; width: 10px; height: 10px;
-            animation-delay: 4s; animation-duration: 18s;
-        }
-        .particle-container .p4 {
-            left: 40%; width: 30px; height: 30px;
-            animation-delay: 0s; animation-duration: 22s;
-        }
-        .particle-container .p5 {
-            left: 50%; width: 12px; height: 12px;
-            animation-delay: 5s; animation-duration: 28s;
-        }
-        .particle-container .p6 {
-            left: 60%; width: 22px; height: 22px;
-            animation-delay: 3s; animation-duration: 24s;
-        }
-        .particle-container .p7 {
-            left: 70%; width: 18px; height: 18px;
-            animation-delay: 7s; animation-duration: 35s;
-        }
-        .particle-container .p8 {
-            left: 80%; width: 10px; height: 10px;
-            animation-delay: 1s; animation-duration: 19s;
-        }
-        .particle-container .p9 {
-            left: 90%; width: 28px; height: 28px;
-            animation-delay: 6s; animation-duration: 26s;
-        }
-        .particle-container .p10 {
-            left: 65%; width: 16px; height: 16px;
-            animation-delay: 8s; animation-duration: 21s;
-        }
+        .particle-container .p1 { left: 10%; width: 15px; height: 15px; animation-delay: 0s; animation-duration: 20s; }
+        .particle-container .p2 { left: 20%; width: 25px; height: 25px; animation-delay: 2s; animation-duration: 30s; }
+        .particle-container .p3 { left: 30%; width: 10px; height: 10px; animation-delay: 4s; animation-duration: 18s; }
+        .particle-container .p4 { left: 40%; width: 30px; height: 30px; animation-delay: 0s; animation-duration: 22s; }
+        .particle-container .p5 { left: 50%; width: 12px; height: 12px; animation-delay: 5s; animation-duration: 28s; }
+        .particle-container .p6 { left: 60%; width: 22px; height: 22px; animation-delay: 3s; animation-duration: 24s; }
+        .particle-container .p7 { left: 70%; width: 18px; height: 18px; animation-delay: 7s; animation-duration: 35s; }
+        .particle-container .p8 { left: 80%; width: 10px; height: 10px; animation-delay: 1s; animation-duration: 19s; }
+        .particle-container .p9 { left: 90%; width: 28px; height: 28px; animation-delay: 6s; animation-duration: 26s; }
+        .particle-container .p10 { left: 65%; width: 16px; height: 16px; animation-delay: 8s; animation-duration: 21s; }
 
         /* --- 10. (NEW) Celebrate Button Style --- */
         .celebrate-btn {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1.3rem; /* Larger font */
             font-weight: 700;
             color: #1a1a1a;
-            background-image: linear-gradient(135deg, #f7b2c5 0%, #f78fa7 100%);
+            /* MODIFIED: brighter gradient */
+            background-image: linear-gradient(135deg, #ff80ab 0%, #ff4081 100%);
             border: none;
             border-radius: 50px;
-            padding: 15px 30px;
-            margin-top: 30px;
+            padding: 18px 36px; /* Larger padding */
+            margin-top: 40px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(247, 178, 197, 0.3);
+            box-shadow: 0 10px 30px rgba(255, 64, 129, 0.4); /* Stronger shadow */
             z-index: 10;
             position: relative;
+            /* NEW: Add pulse animation */
+            animation: pulse-soft 2s infinite ease-in-out;
         }
 
         .celebrate-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 30px rgba(247, 178, 197, 0.5);
+            transform: translateY(-5px) scale(1.1) !important; /* Override pulse on hover */
+            box-shadow: 0 15px 40px rgba(255, 64, 129, 0.6);
+            animation: none; /* Stop pulse on hover */
         }
 
         /* --- 11. (NEW) Cake Modal Styles --- */
@@ -390,7 +409,7 @@
             display: flex; /* Keep flex on */
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(5px); /* Nice blur effect */
+            backdrop-filter: blur(8px); /* Increased blur */
             transition: opacity 0.4s ease, visibility 0.4s ease;
         }
 
@@ -399,14 +418,20 @@
             visibility: visible;
         }
 
+        /* NEW: Add bounce animation when modal opens */
+        .cake-modal.open .modal-content {
+            animation: bounceIn 0.8s;
+        }
+
         .modal-content {
-            background-color: #2c2c2c;
-            padding: 30px 40px;
-            border-radius: 20px;
+            background-color: var(--darker-bg);
+            padding: 40px 50px;
+            border-radius: 25px;
             text-align: center;
             position: relative;
-            box-shadow: 0 0 40px rgba(247, 178, 197, 0.3);
-            border: 2px solid #f7b2c5;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            /* MODIFIED: brighter border */
+            border: 3px solid var(--primary-pink);
         }
 
         .close-btn {
@@ -420,27 +445,28 @@
         }
 
         .close-btn:hover {
-            color: #f7b2c5;
+            color: var(--primary-pink);
         }
 
         .modal-content h2 {
             font-family: 'Great Vibes', cursive;
-            font-size: 3rem;
-            color: #f7b2c5;
+            font-size: 3.5rem;
+            color: var(--primary-pink);
             margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 128, 171, 0.5);
         }
         
         .modal-content p {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             color: #ffffff;
-            margin-top: 20px;
+            margin-top: 25px;
         }
 
         .cake-container {
             position: relative;
             width: 200px;
             height: 200px;
-            margin: 20px auto 0;
+            margin: 30px auto 10px;
         }
 
         .cake {
@@ -452,6 +478,7 @@
             left: 10px;
             border-radius: 10px 10px 0 0;
             transition: transform 0.1s ease; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .cake.clickable {
@@ -467,6 +494,7 @@
             width: 100%;
             height: 33.33%;
             background: #fdf0d5;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
         .layer-top { top: 0; border-radius: 10px 10px 0 0; }
@@ -479,8 +507,9 @@
             left: 0;
             width: 100%;
             height: 20px;
-            background: #f7b2c5; /* Pink icing */
+            background: var(--primary-pink); /* Pink icing */
             border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .candle {
@@ -489,7 +518,7 @@
             height: 30px;
             background: #ffffff;
             bottom: 100px;
-            border: 2px solid #e91e63;
+            border: 2px solid var(--primary-pink);
             border-bottom: none;
         }
 
@@ -522,7 +551,7 @@
         }
 
         .flame:hover {
-            transform: scale(1.2);
+            transform: scale(1.5); /* Larger hover effect */
         }
 
         @keyframes flicker {
@@ -538,43 +567,48 @@
         /* --- 12. (NEW) Gemini Feature Styles --- */
         .gemini-btn {
             font-family: 'Poppins', sans-serif;
-            font-size: 1rem; /* Smaller than celebrate button */
+            font-size: 1.1rem; 
             font-weight: 600;
             color: #ffffff;
             background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Blue/Purple theme */
             border: none;
             border-radius: 50px;
-            padding: 12px 24px; /* Smaller padding */
-            margin-top: 25px; /* Space it out */
+            padding: 15px 30px; 
+            margin-top: 30px; /* Space it out */
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
             z-index: 10;
             position: relative;
+             /* NEW: Add pulse animation */
+             animation: pulse-soft 2.5s infinite ease-in-out;
         }
 
         .gemini-btn:hover:not(:disabled) {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+            transform: translateY(-3px) scale(1.1) !important;
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.6);
+            animation: none;
         }
 
         .gemini-btn:disabled {
             opacity: 0.7;
             cursor: wait;
+            animation: none;
         }
 
         .poem-box {
             display: none; /* Hidden by default */
-            margin-top: 25px;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            border: 1px solid #667eea; /* Match button color */
+            margin-top: 30px;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.3); /* Darker background */
+            border-radius: 15px;
+            border: 2px solid #667eea; /* Match button color */
             font-style: italic;
-            font-size: 1.1rem;
-            line-height: 1.6;
+            font-size: 1.2rem;
+            line-height: 1.8;
             white-space: pre-wrap; /* Preserves newlines from the poem */
             text-align: center; /* Center the poem text */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         /* --- 13. (NEW) Countdown Page Styles --- */
@@ -589,63 +623,81 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            /* MODIFICATION: Animated gradient background */
-            background-image: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f7b2c5 50%, #764ba2 75%, #667eea 100%);
+            /* MODIFICATION: Deeper animated gradient background for contrast */
+            background-image: linear-gradient(135deg, #3a4e9e 0%, #4a2f70 25%, #a85d74 50%, #4a2f70 75%, #3a4e9e 100%);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             font-family: 'Poppins', sans-serif;
             color: #ffffff;
             z-index: 5000; /* On top of everything */
+            
+            /* NEW: Added padding to prevent text from touching edges */
+            padding: 0 20px;
+            text-align: center;
         }
 
         #countdown-page h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: 4rem;
-            color: #f7b2c5;
-            text-shadow: 0 0 15px rgba(247, 178, 197, 0.7);
-            margin-bottom: 10px;
+            font-size: 5rem;
+            color: var(--primary-pink);
+            text-shadow: 0 0 25px rgba(255, 128, 171, 0.8);
+            margin-bottom: 20px;
+            animation: pulse-soft 3s infinite ease-in-out;
         }
 
         #countdown-page h2 {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: 400;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
         #countdown-page p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
+            font-size: 1.5rem;
+            margin-bottom: 40px;
             line-height: 1.6;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
         #timer {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             justify-content: center;
             margin-top: 20px;
             flex-wrap: wrap; /* Allow wrapping on small screens */
         }
 
         .timer-box {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 20px;
-            min-width: 100px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            /* MODIFIED: Darker background for better readability against gradient */
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 25px;
+            min-width: 110px;
+            backdrop-filter: blur(10px);
+            /* MODIFIED: Brighter border */
+            border: 2px solid rgba(255, 128, 171, 0.6);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .timer-box:hover {
+             transform: translateY(-5px);
+             border-color: var(--primary-pink);
         }
 
         .timer-box span {
             display: block;
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         .timer-box div {
-            font-size: 0.9rem;
+            font-size: 1rem;
             text-transform: uppercase;
-            opacity: 0.8;
+            opacity: 0.9;
+            letter-spacing: 1px;
         }
         
         /* This will hide the main website initially */
@@ -656,39 +708,29 @@
         /* Responsive for countdown */
         @media (max-width: 480px) {
             #countdown-page h1 {
-                font-size: 3rem;
+                font-size: 3rem; /* MODIFIED: Reduced for mobile safety */
             }
             #countdown-page h2 {
-                font-size: 1.2rem;
+                font-size: 1.5rem;
             }
             #timer {
                 /* Changed to allow 2x2 grid */
-                gap: 10px;
-                width: 90%;
+                gap: 15px;
+                width: 95%;
             }
             .timer-box {
                 /* Allow two boxes side-by-side */
-                min-width: 120px; 
-                flex-basis: 120px;
-                padding: 15px;
+                min-width: 130px; 
+                flex-basis: 130px;
+                padding: 20px;
             }
             .timer-box span {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
         }
     </style>
 </head>
 <body>
-
-    <!-- NEW: Welcome Modal (for starting music) -->
-    <!-- This modal appears after the countdown finishes -->
-    <div id="welcome-modal" class="cake-modal" style="z-index: 6000;"> <!-- Sits on top of countdown -->
-        <div class="modal-content">
-            <h2 style="font-family: 'Great Vibes', cursive; font-size: 3rem; color: #f7b2c5;">The Wait is Over!</h2>
-            <p style="font-size: 1.2rem; margin-top: 20px;">Your surprise is ready, Sujata! ❤️</p>
-            <button id="start-surprise-btn" class="celebrate-btn" style="margin-top: 30px;">Click to See!</button>
-        </div>
-    </div>
 
     <!-- NEW: Countdown Page Container -->
     <!-- This is shown first, on top of everything -->
@@ -752,10 +794,10 @@
                     IMPORTANT: Replace this placeholder link with your own photo!
                     Just put your photo (e.g., "us.jpg") in the same folder and change the 'src' below.
                 -->
-                <img src="https://placehold.co/350x350/f7b2c5/333333?text=Photo+of+Us" 
+                <img src="https://placehold.co/350x350/ff80ab/ffffff?text=Photo+of+Us" 
                     alt="A photo of us" 
                     class="photo"
-                    onerror="this.src='https://placehold.co/350x350/f7b2c5/333333?text=Photo+Error'; this.onerror=null;">
+                    onerror="this.src='https://placehold.co/350x350/ff80ab/ffffff?text=Photo+Error'; this.onerror=null;">
             </div>
             <div class="content-box" data-aos="fade-left">
                 <h2>A Little Note for You</h2>
@@ -787,17 +829,17 @@
             <div class="gallery">
                 <div class="memory-item" data-aos="fade-up" data-aos-delay="200">
                     <!-- IMPORTANT: Replace this placeholder with your photo -->
-                    <img src="https://placehold.co/300x300/f7b2c5/333333?text=Memory+1" 
+                    <img src="https://placehold.co/300x300/ff80ab/ffffff?text=Memory+1" 
                         alt="Memory 1"
-                        onerror="this.src='https://placehold.co/300x300/f7b2c5/333333?text=Memory+1'; this.onerror=null;">
+                        onerror="this.src='https://placehold.co/300x300/ff80ab/ffffff?text=Memory+1'; this.onerror=null;">
                     <!-- IMPORTANT: Write a caption for the photo -->
                     <p>That amazing trip to the beach!</p>
                 </div>
                 <div class="memory-item" data-aos="fade-up" data-aos-delay="400">
                     <!-- IMPORTANT: Replace this placeholder with your photo -->
-                    <img src="https://placehold.co/300x300/f7b2c5/333333?text=Memory+2" 
+                    <img src="https://placehold.co/300x300/ff80ab/ffffff?text=Memory+2" 
                         alt="Memory 2"
-                        onerror="this.src='https://placehold.co/300x300/f7b2c5/333333?text=Memory+2'; this.onerror=null;">
+                        onerror="this.src='https://placehold.co/300x300/ff80ab/ffffff?text=Memory+2'; this.onerror=null;">
                     <!-- IMPORTANT: Write a caption for the photo -->
                     <p>Our first concert together.</p>
                 </div>
@@ -917,10 +959,10 @@
             let particles = [];
             
             const heartColors = [
-                '#f7b2c5', // soft pink
-                '#f78fa7', // medium pink
-                '#f06292', // bright pink
-                '#e91e63'  // hot pink
+                '#ff80ab', // vibrant pink
+                '#ff4081', // brighter pink
+                '#f50057', // deep pink
+                '#c51162'  // dark pink
             ];
             
             const confettiColors = [
@@ -973,15 +1015,15 @@
                 
                 if (x === undefined || y === undefined) return;
 
-                const heartCount = 20;
+                const heartCount = 25; // Increased count
                 for (let i = 0; i < heartCount; i++) {
                     particles.push({
                         x: x, y: y,
-                        size: Math.random() * 15 + 5, 
-                        speedX: Math.random() * 4 - 2, 
-                        speedY: Math.random() * 4 - 2, 
+                        size: Math.random() * 20 + 5, // Slightly larger
+                        speedX: Math.random() * 5 - 2.5, 
+                        speedY: Math.random() * 5 - 2.5, 
                         opacity: 1,
-                        life: 1, 
+                        life: 1.2, // Longer life
                         color: heartColors[Math.floor(Math.random() * heartColors.length)], 
                         type: 'heart' 
                     });
@@ -990,13 +1032,13 @@
             
             // Function to create a burst of confetti
             function triggerConfetti() {
-                const confettiCount = 200; // Lots of confetti!
+                const confettiCount = 250; // More confetti!
                 const explosionX = canvas.width / 2;
                 const explosionY = canvas.height / 2;
 
                 for (let i = 0; i < confettiCount; i++) {
                     const angle = Math.random() * Math.PI * 2; // Random angle
-                    const speed = Math.random() * 8 + 4; // Random speed (4-12)
+                    const speed = Math.random() * 10 + 5; // Faster
                     
                     particles.push({
                         x: explosionX, y: explosionY,
@@ -1005,7 +1047,7 @@
                         speedX: Math.cos(angle) * speed,
                         speedY: Math.sin(angle) * speed - 4, // Add an upward boost
                         opacity: 1,
-                        life: 3.0, // Lives longer
+                        life: 3.5, // Lives longer
                         color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
                         type: 'confetti', 
                         angle: Math.random() * Math.PI * 2, // Random rotation
@@ -1023,8 +1065,8 @@
                     p.x += p.speedX;
                     p.y += p.speedY;
                     p.speedY += 0.02; // gravity
-                    p.speedX *= 0.995; // drag
-                    p.speedY *= 0.995; // drag
+                    p.speedX *= 0.99; // slightly less drag
+                    p.speedY *= 0.99; // slightly less drag
                     p.life -= 0.005; // fade out
                     p.opacity -= 0.005; // fade out
 
@@ -1078,7 +1120,7 @@
                 poemText.innerText = "";
 
                 const apiKey = ""; // Leave as-is, will be populated by the environment
-                const apiUrl = `https://generativanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                 
                 // MODIFIED: Changed name to Sujata
                 const userPrompt = "Write a romantic long-distance love poem for my girlfriend Sujata's birthday. The tone should be sweet, personal, and celebratory, reflecting our love despite the distance.";
@@ -1238,55 +1280,58 @@
 
             const countdownPage = document.getElementById('countdown-page');
             const mainWebsite = document.getElementById('main-website');
-            // NEW: Get the welcome modal and its button
-            const welcomeModal = document.getElementById('welcome-modal');
-            const startSurpriseBtn = document.getElementById('start-surprise-btn');
 
-            // Set the date for Sujata's birthday: 23rd December 2025
-            // Note: JavaScript months are 0-11, so December is 11.
-            // MODIFICATION: Set to 30 seconds for trial
-            //const birthday = new Date().getTime() + 30 * 1000; // 30 seconds from now
-const birthday = new Date('2025-12-23T00:00:00');
+            // Set the date for Sujata's birthday
+            // MODIFICATION: Set to 15 seconds for trial
+            const birthday = new Date().getTime() + 15000;
+
             // Flag to ensure initialization only happens once
             let isMainSiteInitialized = false;
+
+            // Function to start audio
+            // We define this here so we can call it immediately AND use it as a click fallback
+            async function playAudio() {
+                try {
+                    // Try to start the audio context
+                    await Tone.start();
+                    
+                    // If music isn't already playing, start it
+                    if (Tone.Transport.state !== 'started') {
+                        Tone.Transport.start();
+                        birthdaySong.start(0);
+                    }
+
+                    // If successful, we don't need the click listeners anymore
+                    window.removeEventListener('click', playAudio);
+                    window.removeEventListener('touchstart', playAudio);
+                } catch (e) {
+                    console.log("Browser blocked autoplay. Waiting for user interaction.");
+                }
+            }
 
             // Function to show the main site and run its JS
             function showMainSite() {
                 if (isMainSiteInitialized) return; // Don't run twice
+                isMainSiteInitialized = true;
 
                 // Hide the countdown
                 countdownPage.style.display = 'none';
                 
-                // Show the main site structure (it's still hidden by AOS)
+                // Show the main site structure
                 mainWebsite.style.display = 'block';
                 
-                // NEW: Show the welcome modal instead of starting AOS/music
-                welcomeModal.classList.add('open');
-                
-                // We will call initializeMainWebsite() AFTER the user clicks the welcome button
-            }
+                // DIRECTLY initialize the main website animations
+                initializeMainWebsite();
 
-            // NEW: Add listener for the welcome modal button
-            startSurpriseBtn.addEventListener('click', async () => {
-                if (isMainSiteInitialized) return; // Prevent double-clicks
-                isMainSiteInitialized = true; // Set flag
-                
-                // Start Audio
-                try {
-                    await Tone.start();
-                    Tone.Transport.start();
-                    birthdaySong.start(0);
-                } catch (e) {
-                    console.error("Audio failed to start:", e);
-                }
-                
-                // Hide Modal
-                welcomeModal.classList.remove('open');
-                
-                // NOW initialize the main site's animations
-                // We add a small delay to let the modal fade out
-                setTimeout(initializeMainWebsite, 100); 
-            });
+                // 1. ATTEMPT to start audio immediately when countdown ends
+                playAudio();
+
+                // 2. ALSO add a fallback listener: 
+                // If the browser blocked the line above, this ensures music starts 
+                // the moment the user touches the screen.
+                window.addEventListener('click', playAudio);
+                window.addEventListener('touchstart', playAudio);
+            }
 
 
             // Update the count down every 1 second
