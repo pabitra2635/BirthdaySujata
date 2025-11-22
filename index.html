@@ -417,6 +417,11 @@
             opacity: 1;
             visibility: visible;
         }
+        
+        /* NEW: Specific z-index for Advance Wish Modal so it sits ON TOP of countdown */
+        #advanceWishModal {
+            z-index: 6000; /* Higher than countdown-page */
+        }
 
         /* NEW: Add bounce animation when modal opens */
         .cake-modal.open .modal-content {
@@ -432,6 +437,7 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.5);
             /* MODIFIED: brighter border */
             border: 3px solid var(--primary-pink);
+            max-width: 90%;
         }
 
         .close-btn {
@@ -752,6 +758,20 @@
             <div class="timer-box"><span id="hours">0</span><div>Hours</div></div>
             <div class="timer-box"><span id="minutes">0</span><div>Minutes</div></div>
             <div class="timer-box"><span id="seconds">0</span><div>Seconds</div></div>
+        </div>
+
+        <!-- NEW: Advance Wish Feature -->
+        <button id="openAdvanceWishBtn" class="gemini-btn" style="margin-top: 40px; z-index: 5001;">💌 Read Advance Wish</button>
+    </div>
+
+    <!-- NEW: Advance Wish Modal -->
+    <div id="advanceWishModal" class="cake-modal">
+        <div class="modal-content">
+            <span id="closeAdvanceBtn" class="close-btn">&times;</span>
+            <h2 style="font-size: 2.5rem;">My Promise to You</h2>
+            <p>I know waiting is hard, but this surprise is worth it!</p>
+            <p>As we count down the days, know that my excitement grows with every second. I can't wait to celebrate you.</p>
+            <p style="margin-top: 30px; color: var(--primary-pink); font-weight: 700; font-size: 1.5rem;">Happy Birthday in Advance! ❤️</p>
         </div>
     </div>
 
@@ -1280,16 +1300,20 @@
 
             const countdownPage = document.getElementById('countdown-page');
             const mainWebsite = document.getElementById('main-website');
+            
+            // NEW: Get Advance Wish elements
+            const openAdvanceWishBtn = document.getElementById('openAdvanceWishBtn');
+            const advanceWishModal = document.getElementById('advanceWishModal');
+            const closeAdvanceBtn = document.getElementById('closeAdvanceBtn');
 
             // Set the date for Sujata's birthday
-            // MODIFICATION: Set to 15 seconds for trial
-            const birthday = new Date().getTime() + 15000;
+            // MODIFICATION: Set to Dec 23, 2025 (approx 1 month from now)
+            const birthday = new Date('2025-12-23T00:00:00').getTime();
 
             // Flag to ensure initialization only happens once
             let isMainSiteInitialized = false;
 
-            // Function to start audio
-            // We define this here so we can call it immediately AND use it as a click fallback
+            // Helper to start audio on first interaction
             async function playAudio() {
                 try {
                     // Try to start the audio context
@@ -1308,6 +1332,17 @@
                     console.log("Browser blocked autoplay. Waiting for user interaction.");
                 }
             }
+            
+            // --- NEW: Advance Wish Modal Logic ---
+            openAdvanceWishBtn.addEventListener('click', (e) => {
+                 e.preventDefault();
+                 advanceWishModal.classList.add('open');
+            });
+            
+            closeAdvanceBtn.addEventListener('click', (e) => {
+                 e.preventDefault();
+                 advanceWishModal.classList.remove('open');
+            });
 
             // Function to show the main site and run its JS
             function showMainSite() {
