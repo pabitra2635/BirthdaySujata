@@ -2,29 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- This tag ensures the site looks good on mobile phones -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- MODIFIED: Title changed to Sujata -->
     <title>Happy Birthday, Sujata!</title>
     
-    <!-- Link to the AOS animation library for scroll effects -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <!-- Link to Google Fonts for beautiful, cursive text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Scripts for AOS and Tone.js, needed for the main site -->
-    <!-- We load them here so they are ready when we show the main site -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
 
     <style>
-        /* --- 1. General Styles --- */
         :root {
-            /* MODIFIED: A more vibrant pink for better visibility */
             --primary-pink: #ff80ab; 
             --dark-bg: #1a1a1a;
             --darker-bg: #2c2c2c;
@@ -36,19 +28,16 @@
         }
 
         html {
-            /* This makes scrolling smooth when clicking a link (if we add links later) */
             scroll-behavior: smooth;
         }
 
         body {
-            /* We'll use the 'Poppins' font for most text */
             font-family: 'Poppins', sans-serif;
-            background-color: var(--dark-bg); /* Dark background for a cozy feel */
-            color: #ffffff; /* White text */
-            overflow-x: hidden; /* Prevents accidental horizontal scrolling */
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            overflow-x: hidden;
         }
 
-        /* --- NEW: General Animations --- */
         @keyframes pulse-soft {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -71,76 +60,64 @@
             100% { opacity: 1; transform: scale3d(1, 1, 1); }
         }
 
-        /* --- 2. The "Touch of Love" Canvas --- */
-        /* This canvas is for our heart animation. It sits on top of everything. */
         #loveCanvas {
-            position: fixed; /* Stays in place even when scrolling */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1000; /* Sits on top of all other content */
-            /* This is a crucial part: it lets you click *through* the canvas */
+            z-index: 1000;
             pointer-events: none; 
         }
 
-        /* --- 3. Section Styling --- */
-        /* Each 'section' is a full-screen panel */
         section {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh; /* Makes each section fill the screen height */
-            padding: 40px 20px; /* (MODIFIED) Reduced horizontal padding for all sizes */
+            min-height: 100vh;
+            padding: 40px 20px;
             text-align: center;
             position: relative;
-            overflow: hidden; /* Hides any overflowing animation elements */
+            overflow: hidden;
         }
 
-        /* --- 4. Hero Section (First Screen) --- */
         .hero {
-            /* NEW: Animated gradient background - slightly deeper colors for contrast */
             background-image: linear-gradient(135deg, #4a63d4 0%, #5d3a8a 25%, #d67a96 50%, #5d3a8a 75%, #4a63d4 100%);
-            background-size: 400% 400%; /* Make background larger than viewport */
-            animation: gradientShift 15s ease infinite; /* Animate the background position */
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             
             background-size: cover;
             background-position: center;
         }
 
         .hero .content {
-            position: relative; /* Add this */
-            z-index: 2;         /* Add this */
+            position: relative;
+            z-index: 2;
         }
 
         .hero h1 {
-            /* 'Great Vibes' is our beautiful cursive font */
             font-family: 'Great Vibes', cursive;
-            font-size: 5rem; /* (MODIFIED) Slightly smaller base font */
+            font-size: 5rem;
             margin-bottom: 20px;
-            /* MODIFIED: Use vibrant pink variable */
             color: var(--primary-pink); 
-            text-shadow: 0 0 20px rgba(255, 128, 171, 0.8); /* Stronger glow */
-            /* NEW: Add pulse animation */
+            text-shadow: 0 0 20px rgba(255, 128, 171, 0.8);
             animation: pulse-soft 3s infinite ease-in-out;
         }
 
         .hero p {
-            font-size: 1.5rem; /* MODIFIED: Larger font for better visibility */
+            font-size: 1.5rem;
             font-weight: 400;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Added shadow for readability */
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
-        /* This is the little "Scroll Down" arrow */
         .scroll-down {
             margin-top: 50px;
             font-size: 1rem;
             color: #ffffff;
-            animation: bounce 2s infinite; /* A bouncing animation to get attention */
+            animation: bounce 2s infinite;
         }
 
-        /* Bouncing animation keyframes */
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {
                 transform: translateY(0);
@@ -153,32 +130,29 @@
             }
         }
 
-        /* NEW: Keyframes for animated gradient */
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* --- 5. Message Section --- */
         .message {
-            flex-direction: row; /* Puts image and text side-by-side */
-            flex-wrap: wrap; /* Allows items to stack on smaller screens */
+            flex-direction: row;
+            flex-wrap: wrap;
             gap: 40px;
-            background-color: var(--darker-bg); /* A slightly lighter dark color */
+            background-color: var(--darker-bg);
         }
 
         .content-box {
             max-width: 500px;
             text-align: left;
-            position: relative; /* Add this */
-            z-index: 2;         /* Add this */
+            position: relative;
+            z-index: 2;
         }
 
         .content-box h2 {
             font-family: 'Great Vibes', cursive;
             font-size: 3rem;
-            /* MODIFIED: Use vibrant pink variable */
             color: var(--primary-pink);
             margin-bottom: 20px;
             text-shadow: 0 0 10px rgba(255, 128, 171, 0.5);
@@ -192,26 +166,24 @@
         .photo {
             width: 100%;
             max-width: 350px;
-            border-radius: 15px; /* Rounded corners */
+            border-radius: 15px;
             border: 5px solid #ffffff;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: all 0.4s ease; /* Smoother transition */
+            transition: all 0.4s ease;
         }
         .photo:hover {
-            transform: scale(1.05) rotate(-2deg); /* Slight zoom and tilt */
-            border-color: var(--primary-pink); /* MODIFIED: Pink border on hover */
-            box-shadow: 0 15px 40px rgba(255, 128, 171, 0.4); /* Pink glow */
+            transform: scale(1.05) rotate(-2deg);
+            border-color: var(--primary-pink);
+            box-shadow: 0 15px 40px rgba(255, 128, 171, 0.4);
         }
 
-        /* --- 6. Memories Section --- */
         .memories h2 {
             font-family: 'Great Vibes', cursive;
             font-size: 3.5rem;
-            /* MODIFIED: Use vibrant pink variable */
             color: var(--primary-pink);
             margin-bottom: 40px;
-            position: relative; /* Add this */
-            z-index: 2;         /* Add this */
+            position: relative;
+            z-index: 2;
             text-shadow: 0 0 10px rgba(255, 128, 171, 0.5);
         }
 
@@ -220,8 +192,8 @@
             gap: 30px;
             flex-wrap: wrap;
             justify-content: center;
-            position: relative; /* Add this */
-            z-index: 2;         /* Add this */
+            position: relative;
+            z-index: 2;
         }
 
         .memory-item img {
@@ -234,9 +206,9 @@
         }
 
         .memory-item img:hover {
-            transform: scale(1.08) rotate(3deg); /* Zooms and slightly rotates */
-            border-color: var(--primary-pink); /* MODIFIED: Pink border */
-            box-shadow: 0 15px 30px rgba(255, 128, 171, 0.5); /* Stronger pink glow */
+            transform: scale(1.08) rotate(3deg);
+            border-color: var(--primary-pink);
+            box-shadow: 0 15px 30px rgba(255, 128, 171, 0.5);
         }
 
         .memory-item p {
@@ -245,23 +217,21 @@
             font-size: 1.1rem;
         }
 
-        /* --- 7. Final Wish Section --- */
         .wish {
             background-color: var(--darker-bg);
         }
         .wish .content {
-            position: relative; /* Add this */
-            z-index: 2;         /* Add this */
+            position: relative;
+            z-index: 2;
         }
         .wish h2 {
             font-family: 'Great Vibes', cursive;
             font-size: 4rem;
-            /* MODIFIED: Use vibrant pink variable */
             color: var(--primary-pink);
             text-shadow: 0 0 15px rgba(255, 128, 171, 0.6);
         }
         .wish p {
-            font-size: 1.3rem; /* Larger text */
+            font-size: 1.3rem;
             max-width: 600px;
             margin: 30px 0;
             line-height: 1.6;
@@ -270,36 +240,34 @@
             margin-top: 30px;
             font-weight: 400;
             font-style: italic;
-            font-size: 1.8rem; /* Larger text */
+            font-size: 1.8rem;
             color: var(--primary-pink);
         }
 
-        /* --- 8. Responsive Design (for Mobile) --- */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 4rem; /* Smaller text on small screens */
+                font-size: 4rem;
             }
             .hero p {
                 font-size: 1.2rem;
             }
             .message {
-                flex-direction: column; /* Stack image and text vertically */
+                flex-direction: column;
             }
             .content-box {
-                text-align: center; /* Center-align text on mobile */
+                text-align: center;
             }
         }
 
-        /* (NEW) Further adjustments for very small screens */
         @media (max-width: 400px) {
             .hero h1 {
-                font-size: 3.5rem; /* Even smaller */
+                font-size: 3.5rem;
             }
             .hero p {
                 font-size: 1.1rem;
             }
             .wish h2 {
-                font-size: 3rem; /* Scale down other headers */
+                font-size: 3rem;
             }
             .memories h2 {
                 font-size: 2.8rem;
@@ -307,18 +275,15 @@
             .content-box h2 {
                 font-size: 2.5rem;
             }
-            /* (NEW) Make modal padding smaller on phones */
             .modal-content {
                 padding: 20px; 
-                width: 95%; /* Ensure it doesn't touch edges */
+                width: 95%;
             }
-            /* (NEW) Make modal title smaller on phones */
             .modal-content h2 {
                 font-size: 2.5rem;
             }
         }
 
-        /* --- 9. Ambient Animation (NEW) --- */
         .particle-container {
             position: absolute;
             top: 0;
@@ -326,25 +291,22 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            z-index: 1; /* Above section bg, below content */
-            pointer-events: none; /* Make sure it doesn't block clicks */
+            z-index: 1;
+            pointer-events: none;
         }
 
-        /* (NEW) Particle styles that were missing */
         .particle {
             position: absolute;
             display: block;
-            list-style: none; /* Remove bullet points */
+            list-style: none;
             width: 20px;
             height: 20px;
-            /* MODIFIED: brighter pink particles */
             background-color: rgba(255, 128, 171, 0.3); 
             border-radius: 50%;
-            bottom: -150px; /* Start off-screen */
+            bottom: -150px;
             animation: floatUp 25s infinite linear;
         }
 
-        /* Keyframes for floating up */
         @keyframes floatUp {
             0% {
                 transform: translateY(0) scale(0.5);
@@ -356,7 +318,6 @@
             }
         }
 
-        /* Create variations for different particles */
         .particle-container .p1 { left: 10%; width: 15px; height: 15px; animation-delay: 0s; animation-duration: 20s; }
         .particle-container .p2 { left: 20%; width: 25px; height: 25px; animation-delay: 2s; animation-duration: 30s; }
         .particle-container .p3 { left: 30%; width: 10px; height: 10px; animation-delay: 4s; animation-duration: 18s; }
@@ -368,48 +329,44 @@
         .particle-container .p9 { left: 90%; width: 28px; height: 28px; animation-delay: 6s; animation-duration: 26s; }
         .particle-container .p10 { left: 65%; width: 16px; height: 16px; animation-delay: 8s; animation-duration: 21s; }
 
-        /* --- 10. (NEW) Celebrate Button Style --- */
         .celebrate-btn {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.3rem; /* Larger font */
+            font-size: 1.3rem;
             font-weight: 700;
             color: #1a1a1a;
-            /* MODIFIED: brighter gradient */
             background-image: linear-gradient(135deg, #ff80ab 0%, #ff4081 100%);
             border: none;
             border-radius: 50px;
-            padding: 18px 36px; /* Larger padding */
+            padding: 18px 36px;
             margin-top: 40px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(255, 64, 129, 0.4); /* Stronger shadow */
+            box-shadow: 0 10px 30px rgba(255, 64, 129, 0.4);
             z-index: 10;
             position: relative;
-            /* NEW: Add pulse animation */
             animation: pulse-soft 2s infinite ease-in-out;
         }
 
         .celebrate-btn:hover {
-            transform: translateY(-5px) scale(1.1) !important; /* Override pulse on hover */
+            transform: translateY(-5px) scale(1.1) !important;
             box-shadow: 0 15px 40px rgba(255, 64, 129, 0.6);
-            animation: none; /* Stop pulse on hover */
+            animation: none;
         }
 
-        /* --- 11. (NEW) Cake Modal Styles --- */
         .cake-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.85); /* Darker overlay */
-            z-index: 2000; /* On top of everything */
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
             opacity: 0;
             visibility: hidden;
-            display: flex; /* Keep flex on */
+            display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(8px); /* Increased blur */
+            backdrop-filter: blur(8px);
             transition: opacity 0.4s ease, visibility 0.4s ease;
         }
 
@@ -418,12 +375,10 @@
             visibility: visible;
         }
         
-        /* NEW: Specific z-index for Advance Wish Modal so it sits ON TOP of countdown */
         #advanceWishModal {
-            z-index: 6000; /* Higher than countdown-page */
+            z-index: 6000;
         }
 
-        /* NEW: Add bounce animation when modal opens */
         .cake-modal.open .modal-content {
             animation: bounceIn 0.8s;
         }
@@ -435,7 +390,6 @@
             text-align: center;
             position: relative;
             box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            /* MODIFIED: brighter border */
             border: 3px solid var(--primary-pink);
             max-width: 90%;
         }
@@ -479,7 +433,7 @@
             position: absolute;
             width: 180px;
             height: 100px;
-            background: #fdf0d5; /* Cake color */
+            background: #fdf0d5;
             bottom: 0;
             left: 10px;
             border-radius: 10px 10px 0 0;
@@ -504,7 +458,7 @@
         }
 
         .layer-top { top: 0; border-radius: 10px 10px 0 0; }
-        .layer-middle { top: 33.33%; background: #d4a373; } /* Filling */
+        .layer-middle { top: 33.33%; background: #d4a373; }
         .layer-bottom { top: 66.66%; }
 
         .icing {
@@ -513,7 +467,7 @@
             left: 0;
             width: 100%;
             height: 20px;
-            background: var(--primary-pink); /* Pink icing */
+            background: var(--primary-pink);
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
@@ -557,7 +511,7 @@
         }
 
         .flame:hover {
-            transform: scale(1.5); /* Larger hover effect */
+            transform: scale(1.5);
         }
 
         @keyframes flicker {
@@ -570,23 +524,21 @@
             display: none !important;
         }
 
-        /* --- 12. (NEW) Gemini Feature Styles --- */
         .gemini-btn {
             font-family: 'Poppins', sans-serif;
             font-size: 1.1rem; 
             font-weight: 600;
             color: #ffffff;
-            background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Blue/Purple theme */
+            background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
             border-radius: 50px;
             padding: 15px 30px; 
-            margin-top: 30px; /* Space it out */
+            margin-top: 30px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
             z-index: 10;
             position: relative;
-             /* NEW: Add pulse animation */
              animation: pulse-soft 2.5s infinite ease-in-out;
         }
 
@@ -603,21 +555,20 @@
         }
 
         .poem-box {
-            display: none; /* Hidden by default */
+            display: none;
             margin-top: 30px;
             padding: 30px;
-            background-color: rgba(0, 0, 0, 0.3); /* Darker background */
+            background-color: rgba(0, 0, 0, 0.3);
             border-radius: 15px;
-            border: 2px solid #667eea; /* Match button color */
+            border: 2px solid #667eea;
             font-style: italic;
             font-size: 1.2rem;
             line-height: 1.8;
-            white-space: pre-wrap; /* Preserves newlines from the poem */
-            text-align: center; /* Center the poem text */
+            white-space: pre-wrap;
+            text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
-        /* --- 13. (NEW) Countdown Page Styles --- */
         #countdown-page {
             display: flex;
             flex-direction: column;
@@ -629,15 +580,13 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            /* MODIFICATION: Deeper animated gradient background for contrast */
             background-image: linear-gradient(135deg, #3a4e9e 0%, #4a2f70 25%, #a85d74 50%, #4a2f70 75%, #3a4e9e 100%);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             font-family: 'Poppins', sans-serif;
             color: #ffffff;
-            z-index: 5000; /* On top of everything */
+            z-index: 5000;
             
-            /* NEW: Added padding to prevent text from touching edges */
             padding: 0 20px;
             text-align: center;
         }
@@ -671,17 +620,15 @@
             gap: 20px;
             justify-content: center;
             margin-top: 20px;
-            flex-wrap: wrap; /* Allow wrapping on small screens */
+            flex-wrap: wrap;
         }
 
         .timer-box {
-            /* MODIFIED: Darker background for better readability against gradient */
             background: rgba(0, 0, 0, 0.5);
             border-radius: 15px;
             padding: 25px;
             min-width: 110px;
             backdrop-filter: blur(10px);
-            /* MODIFIED: Brighter border */
             border: 2px solid rgba(255, 128, 171, 0.6);
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             transition: transform 0.3s ease;
@@ -706,26 +653,22 @@
             letter-spacing: 1px;
         }
         
-        /* This will hide the main website initially */
         #main-website {
             display: none;
         }
 
-        /* Responsive for countdown */
         @media (max-width: 480px) {
             #countdown-page h1 {
-                font-size: 3rem; /* MODIFIED: Reduced for mobile safety */
+                font-size: 3rem;
             }
             #countdown-page h2 {
                 font-size: 1.5rem;
             }
             #timer {
-                /* Changed to allow 2x2 grid */
                 gap: 15px;
                 width: 95%;
             }
             .timer-box {
-                /* Allow two boxes side-by-side */
                 min-width: 130px; 
                 flex-basis: 130px;
                 padding: 20px;
@@ -738,10 +681,7 @@
 </head>
 <body>
 
-    <!-- NEW: Countdown Page Container -->
-    <!-- This is shown first, on top of everything -->
     <div id="countdown-page">
-        <!-- Ambient particles for the countdown page -->
         <ul class="particle-container">
             <li class="particle p1"></li> <li class="particle p2"></li>
             <li class="particle p3"></li> <li class="particle p4"></li>
@@ -760,11 +700,9 @@
             <div class="timer-box"><span id="seconds">0</span><div>Seconds</div></div>
         </div>
 
-        <!-- NEW: Advance Wish Feature -->
         <button id="openAdvanceWishBtn" class="gemini-btn" style="margin-top: 40px; z-index: 5001;">💌 Read Advance Wish</button>
     </div>
 
-    <!-- NEW: Advance Wish Modal -->
     <div id="advanceWishModal" class="cake-modal">
         <div class="modal-content">
             <span id="closeAdvanceBtn" class="close-btn">&times;</span>
@@ -775,14 +713,10 @@
         </div>
     </div>
 
-    <!-- NEW: Main Website Container -->
-    <!-- This is hidden by default and will be shown by the script -->
     <div id="main-website">
         
-        <!-- This canvas is where the "touch of love" hearts will be drawn -->
         <canvas id="loveCanvas"></canvas>
 
-        <!-- Section 1: Hero Welcome -->
         <section class="hero">
             <ul class="particle-container">
                 <li class="particle p1"></li> <li class="particle p2"></li>
@@ -792,15 +726,12 @@
                 <li class="particle p9"></li> <li class="particle p10"></li>
             </ul>
             <div class="content">
-                <!-- MODIFIED: Changed name to Sujata -->
                 <h1 data-aos="fade-up" data-aos-duration="1000">Happy Birthday, Sujata!</h1>
-                <!-- MODIFIED: Added Pabitra's name -->
                 <p data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">The world is so much brighter with you in it. - Pabitra</p>
                 <div class="scroll-down" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">Scroll Down &darr;</div>
             </div>
         </section>
 
-        <!-- Section 2: A Sweet Message -->
         <section class="message">
             <ul class="particle-container">
                 <li class="particle p1"></li> <li class="particle p2"></li>
@@ -810,33 +741,25 @@
                 <li class="particle p9"></li> <li class="particle p10"></li>
             </ul>
             <div class="content-box" data-aos="fade-right">
-                <!-- 
-                    IMPORTANT: Replace this placeholder link with your own photo!
-                    Just put your photo (e.g., "us.jpg") in the same folder and change the 'src' below.
-                -->
-                <img src="https://placehold.co/350x350/ff80ab/ffffff?text=Photo+of+Us" 
+                <img src="https://i.ibb.co/xc3xLHr/IMG-20251026-WA0017.jpg" 
                     alt="A photo of us" 
                     class="photo"
                     onerror="this.src='https://placehold.co/350x350/ff80ab/ffffff?text=Photo+Error'; this.onerror=null;">
             </div>
             <div class="content-box" data-aos="fade-left">
                 <h2>A Little Note for You</h2>
-                <!-- IMPORTANT: Write your own personal message here -->
                 <p>
                     Every single moment with you is a gift. From our late-night talks to our silly adventures, you make every day feel special. I'm so incredibly lucky to call you mine.
                 </p>
 
-                <!-- Gemini Poem Feature -->
                 <button id="geminiPoemBtn" class="gemini-btn" data-aos="fade-up" data-aos-delay="100">✨ A Poem For You</button>
                 <div id="poemBox" class="poem-box">
                     <p id="poemText"></p>
                 </div>
-                <!-- End Gemini Feature -->
 
             </div>
         </section>
         
-        <!-- Section 3: Memories -->
         <section class="memories">
             <ul class="particle-container">
                 <li class="particle p1"></li> <li class="particle p2"></li>
@@ -848,26 +771,20 @@
             <h2 data-aos="fade-up">Some of My Favorite Moments...</h2>
             <div class="gallery">
                 <div class="memory-item" data-aos="fade-up" data-aos-delay="200">
-                    <!-- IMPORTANT: Replace this placeholder with your photo -->
-                    <img src="https://placehold.co/300x300/ff80ab/ffffff?text=Memory+1" 
+                    <img src="https://i.ibb.co/vvjBWJky/In-Shot-20240823-194300207-Copy.jpg" 
                         alt="Memory 1"
                         onerror="this.src='https://placehold.co/300x300/ff80ab/ffffff?text=Memory+1'; this.onerror=null;">
-                    <!-- IMPORTANT: Write a caption for the photo -->
                     <p>That amazing trip to the beach!</p>
                 </div>
                 <div class="memory-item" data-aos="fade-up" data-aos-delay="400">
-                    <!-- IMPORTANT: Replace this placeholder with your photo -->
-                    <img src="https://placehold.co/300x300/ff80ab/ffffff?text=Memory+2" 
+                    <img src="https://i.ibb.co/SXMwsfkH/18c97659f471bd89b5327fc287587682.jpg" 
                         alt="Memory 2"
                         onerror="this.src='https://placehold.co/300x300/ff80ab/ffffff?text=Memory+2'; this.onerror=null;">
-                    <!-- IMPORTANT: Write a caption for the photo -->
                     <p>Our first concert together.</p>
                 </div>
-                <!-- You can copy and paste the 'memory-item' div to add more photos! -->
             </div>
         </section>
 
-        <!-- Section 4: Final Wish -->
         <section class="wish">
             <ul class="particle-container">
                 <li class="particle p1"></li> <li class="particle p2"></li>
@@ -878,23 +795,19 @@
             </ul>
             <div class="content">
                 <h2 data-aos="zoom-in">My Wish For You</h2>
-                <!-- IMPORTANT: Write your final birthday wish -->
                 <p data-aos="zoom-in" data-aos-delay="200">
                     May your birthday be as beautiful, vibrant, and wonderful as you are. 
                     I hope all your dreams come true today and always.
                 </p>
                 <h3 data-aos="zoom-in" data-aos-delay="400">
                     With all my love,<br>
-                    <!-- MODIFIED: Changed name to Pabitra -->
                     - Pabitra
                 </h3>
                 
-                <!-- Celebrate Button -->
                 <button id="celebrateBtn" class="celebrate-btn" data-aos="zoom-in" data-aos-delay="600">A Birthday Surprise! 🎂</button>
             </div>
         </section>
 
-        <!-- Cake Modal -->
         <div id="cakeModal" class="cake-modal">
             <div class="modal-content">
                 <span id="closeModalBtn" class="close-btn">&times;</span>
@@ -914,19 +827,11 @@
             </div>
         </div>
         
-    </div> <!-- End of #main-website -->
+    </div>
 
     
     <script>
-        // This script block contains ALL the JavaScript logic.
-        // It handles both the countdown and running the main website's animations.
-
-        /**
-         * This function contains ALL the JavaScript from your original file.
-         * It will be called ONLY when the main website is ready to be shown.
-         */
         
-        // MOVED: Define synth and song here to be accessible by multiple functions
         const synth = new Tone.Synth().toDestination();
         const birthdayMelody = [
             { note: 'G4', duration: '8n', time: '0:0' }, { note: 'G4', duration: '8n', time: '0:1' },
@@ -957,17 +862,14 @@
 
         function initializeMainWebsite() {
             
-            // --- 1. Initialize the AOS (Animate on Scroll) library ---
             AOS.init({
-                duration: 1000, // Animation duration in milliseconds
-                once: true,     // Whether animation should happen only once
-                offset: 100,    // Triggers animation a bit before it's in view
+                duration: 1000,
+                once: true,
+                offset: 100,
             });
 
-            // --- 2. "Touch of Love" Heart Animation ---
             const canvas = document.getElementById('loveCanvas');
             
-            // Safety check: If the canvas isn't found, stop this function.
             if (!canvas) {
                 console.error("loveCanvas not found. Main website script cannot initialize.");
                 return; 
@@ -979,10 +881,10 @@
             let particles = [];
             
             const heartColors = [
-                '#ff80ab', // vibrant pink
-                '#ff4081', // brighter pink
-                '#f50057', // deep pink
-                '#c51162'  // dark pink
+                '#ff80ab',
+                '#ff4081',
+                '#f50057',
+                '#c51162'
             ];
             
             const confettiColors = [
@@ -991,7 +893,6 @@
                 '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722'
             ];
 
-            // Function to draw a single heart shape
             function drawHeart(x, y, size, opacity, color) {
                 let safeColor = color.startsWith('rgb') ? color : `rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, ${opacity})`;
                 if (color.startsWith('rgb') && color.includes(',')) {
@@ -1012,11 +913,10 @@
                 ctx.closePath();
             }
             
-            // Function to draw a single confetti particle
             function drawConfetti(p) {
-                ctx.save(); // Save the current canvas state
-                ctx.translate(p.x, p.y); // Move to the particle's position
-                ctx.rotate(p.angle); // Rotate the particle
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.angle);
                 
                 let safeColor = p.color.startsWith('rgb') ? p.color : `rgba(${parseInt(p.color.slice(1, 3), 16)}, ${parseInt(p.color.slice(3, 5), 16)}, ${parseInt(p.color.slice(5, 7), 16)}, ${p.opacity})`;
                 if (p.color.startsWith('rgb') && p.color.includes(',')) {
@@ -1025,58 +925,55 @@
                 ctx.fillStyle = safeColor;
                 
                 ctx.fillRect(-p.size / 2, -p.sizeH / 2, p.size, p.sizeH);
-                ctx.restore(); // Restore the canvas state
+                ctx.restore();
             }
 
-            // Function to create a burst of hearts at a specific location
             function createHearts(event) {
                 let x = event.clientX || (event.touches && event.touches[0].clientX);
                 let y = event.clientY || (event.touches && event.touches[0].clientY);
                 
                 if (x === undefined || y === undefined) return;
 
-                const heartCount = 25; // Increased count
+                const heartCount = 25;
                 for (let i = 0; i < heartCount; i++) {
                     particles.push({
                         x: x, y: y,
-                        size: Math.random() * 20 + 5, // Slightly larger
+                        size: Math.random() * 20 + 5,
                         speedX: Math.random() * 5 - 2.5, 
                         speedY: Math.random() * 5 - 2.5, 
                         opacity: 1,
-                        life: 1.2, // Longer life
+                        life: 1.2,
                         color: heartColors[Math.floor(Math.random() * heartColors.length)], 
                         type: 'heart' 
                     });
                 }
             }
             
-            // Function to create a burst of confetti
             function triggerConfetti() {
-                const confettiCount = 250; // More confetti!
+                const confettiCount = 250;
                 const explosionX = canvas.width / 2;
                 const explosionY = canvas.height / 2;
 
                 for (let i = 0; i < confettiCount; i++) {
-                    const angle = Math.random() * Math.PI * 2; // Random angle
-                    const speed = Math.random() * 10 + 5; // Faster
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 10 + 5;
                     
                     particles.push({
                         x: explosionX, y: explosionY,
-                        size: Math.random() * 8 + 4, // Random width
-                        sizeH: Math.random() * 6 + 4, // Random height
+                        size: Math.random() * 8 + 4,
+                        sizeH: Math.random() * 6 + 4,
                         speedX: Math.cos(angle) * speed,
-                        speedY: Math.sin(angle) * speed - 4, // Add an upward boost
+                        speedY: Math.sin(angle) * speed - 4,
                         opacity: 1,
-                        life: 3.5, // Lives longer
+                        life: 3.5,
                         color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
                         type: 'confetti', 
-                        angle: Math.random() * Math.PI * 2, // Random rotation
-                        spin: Math.random() * 0.2 - 0.1 // Random spin speed
+                        angle: Math.random() * Math.PI * 2,
+                        spin: Math.random() * 0.2 - 0.1
                     });
                 }
             }
 
-            // The main animation loop that runs every frame
             function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -1084,11 +981,11 @@
                     let p = particles[i];
                     p.x += p.speedX;
                     p.y += p.speedY;
-                    p.speedY += 0.02; // gravity
-                    p.speedX *= 0.99; // slightly less drag
-                    p.speedY *= 0.99; // slightly less drag
-                    p.life -= 0.005; // fade out
-                    p.opacity -= 0.005; // fade out
+                    p.speedY += 0.02;
+                    p.speedX *= 0.99;
+                    p.speedY *= 0.99;
+                    p.life -= 0.005;
+                    p.opacity -= 0.005;
 
                     if (p.type === 'confetti') {
                         p.angle += p.spin;
@@ -1102,7 +999,7 @@
                         }
                     } else {
                         particles.splice(i, 1);
-                        i--; // Adjust index after removal
+                        i--;
                     }
                 }
                 requestAnimationFrame(animate);
@@ -1113,19 +1010,16 @@
             window.addEventListener('touchstart', createHearts);
             animate();
 
-            // Resize canvas when window resizes
             window.addEventListener('resize', () => {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
             });
 
-            // Helper to prevent double events on touch
             function handleInteraction(event, action) {
-                event.preventDefault(); // Stop click from firing after touch
-                action(event); // Run the desired function
+                event.preventDefault();
+                action(event);
             }
 
-            // --- 3. Gemini Poem Feature ---
             const geminiPoemBtn = document.getElementById('geminiPoemBtn');
             const poemBox = document.getElementById('poemBox');
             const poemText = document.getElementById('poemText');
@@ -1139,10 +1033,9 @@
                 poemBox.style.display = 'none'; 
                 poemText.innerText = "";
 
-                const apiKey = ""; // Leave as-is, will be populated by the environment
+                const apiKey = "";
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                 
-                // MODIFIED: Changed name to Sujata
                 const userPrompt = "Write a romantic long-distance love poem for my girlfriend Sujata's birthday. The tone should be sweet, personal, and celebratory, reflecting our love despite the distance.";
 
                 const payload = {
@@ -1162,7 +1055,7 @@
 
                     const result = await response.json();
                     const candidate = result.candidates?.[0];
-                    let generatedText = "Could not generate a poem right now, but my love for you is 100% real! ❤️"; // Fallback
+                    let generatedText = "Could not generate a poem right now, but my love for you is 100% real! ❤️";
 
                     if (candidate && candidate.content?.parts?.[0]?.text) {
                         generatedText = candidate.content.parts[0].text;
@@ -1170,7 +1063,7 @@
                     
                     poemText.innerText = generatedText;
                     poemBox.style.display = 'block';
-                    AOS.refreshHard(); // Make sure the new box animates in
+                    AOS.refreshHard();
 
                 } catch (error) {
                     console.error("Gemini API call failed:", error);
@@ -1183,7 +1076,6 @@
                 }
             }
 
-            // --- 4. Birthday Cake Celebration ---
             const celebrateBtn = document.getElementById('celebrateBtn');
             const cakeModal = document.getElementById('cakeModal');
             const closeModalBtn = document.getElementById('closeModalBtn');
@@ -1194,20 +1086,13 @@
             
             let candlesOut = 0;
             
-            // REMOVED: Synth and song definitions were moved outside this function
-            // to be globally accessible for the welcome modal.
-
-            // Create a named function for cake cutting
             function handleCakeCutInteraction(event) {
                 handleInteraction(event, cutTheCake);
             }
 
-            // Function to open the cake modal
             async function openCakeModal() {
-                // Must start Tone.js on a user gesture
                 await Tone.start();
                 
-                // Reset state
                 modalTitle.innerText = "Make a wish...";
                 modalInstruction.innerText = "Click the flames to blow them out!";
                 flames.forEach(f => f.classList.remove('flame-out'));
@@ -1217,115 +1102,86 @@
                 birthdayCake.removeEventListener('touchstart', handleCakeCutInteraction);
                 candlesOut = 0;
                 
-                // Use classList to show modal
                 cakeModal.classList.add('open');
                 
-                // Start the music
                 Tone.Transport.start();
                 birthdaySong.start(0);
             }
 
-            // Function to close the cake modal
             function closeCakeModal() {
-                // Use classList to hide modal
                 cakeModal.classList.remove('open');
-                // Stop the music
                 Tone.Transport.stop();
                 birthdaySong.stop(0);
             }
 
-            // Function to handle the cake cutting
             function cutTheCake() {
-                // Add cut animation
                 birthdayCake.classList.add('cut');
-                birthdayCake.classList.remove('clickable'); // No more clicks
+                birthdayCake.classList.remove('clickable');
 
-                // Final message
                 modalTitle.innerText = "Happy Birthday, Love!";
                 modalInstruction.innerText = "Your wish is on its way... ❤️";
                 
-                // Remove the named listener
                 birthdayCake.removeEventListener('click', handleCakeCutInteraction);
                 birthdayCake.removeEventListener('touchstart', handleCakeCutInteraction);
                 
-                // Wait 500ms, then close modal & fire confetti
                 setTimeout(() => {
                     closeCakeModal();
                     triggerConfetti();
                 }, 500);
             }
 
-            // Event listener for the celebrate button
             celebrateBtn.addEventListener('click', (e) => handleInteraction(e, openCakeModal));
             celebrateBtn.addEventListener('touchstart', (e) => handleInteraction(e, openCakeModal));
             
-            // Event listener for the close button
             closeModalBtn.addEventListener('click', (e) => handleInteraction(e, closeCakeModal));
             closeModalBtn.addEventListener('touchstart', (e) => handleInteraction(e, closeCakeModal));
 
-            // Function to handle blowing out a flame
             function blowOutFlame(event) {
-                // 'this' will be the flame element that was clicked/touched
                 if (!this.classList.contains('flame-out')) {
                     this.classList.add('flame-out');
                     candlesOut++;
                 }
                 
-                // Check if all candles are out
                 if (candlesOut === flames.length) {
                     modalTitle.innerText = "Wish Made!";
                     modalInstruction.innerText = "Now, tap the cake to cut it!";
                     
                     birthdayCake.classList.add('clickable');
-                    // Add listeners using the *named function*
                     birthdayCake.addEventListener('click', handleCakeCutInteraction);
                     birthdayCake.addEventListener('touchstart', handleCakeCutInteraction);
                 }
             }
             
-            // Event listeners for each flame
             flames.forEach(flame => {
                 flame.addEventListener('click', (e) => handleInteraction(e, blowOutFlame.bind(flame)));
                 flame.addEventListener('touchstart', (e) => handleInteraction(e, blowOutFlame.bind(flame)));
             });
 
-        } // --- End of initializeMainWebsite() function ---
+        }
 
 
-        /**
-         * --- NEW: Countdown and Page-Switching Logic ---
-         * This runs as soon as the page is loaded.
-         */
         window.addEventListener('DOMContentLoaded', (event) => {
 
             const countdownPage = document.getElementById('countdown-page');
             const mainWebsite = document.getElementById('main-website');
             
-            // NEW: Get Advance Wish elements
             const openAdvanceWishBtn = document.getElementById('openAdvanceWishBtn');
             const advanceWishModal = document.getElementById('advanceWishModal');
             const closeAdvanceBtn = document.getElementById('closeAdvanceBtn');
 
-            // Set the date for Sujata's birthday
-            // MODIFICATION: Set to Dec 23, 2025 (approx 1 month from now)
             const birthday = new Date('2025-12-23T00:00:00').getTime();
 
-            // Flag to ensure initialization only happens once
             let isMainSiteInitialized = false;
 
-            // Helper to start audio on first interaction
             async function playAudio() {
                 try {
-                    // Try to start the audio context
                     await Tone.start();
                     
-                    // If music isn't already playing, start it
                     if (Tone.Transport.state !== 'started') {
                         Tone.Transport.start();
                         birthdaySong.start(0);
                     }
 
-                    // If successful, we don't need the click listeners anymore
                     window.removeEventListener('click', playAudio);
                     window.removeEventListener('touchstart', playAudio);
                 } catch (e) {
@@ -1333,7 +1189,6 @@
                 }
             }
             
-            // --- NEW: Advance Wish Modal Logic ---
             openAdvanceWishBtn.addEventListener('click', (e) => {
                  e.preventDefault();
                  advanceWishModal.classList.add('open');
@@ -1344,55 +1199,42 @@
                  advanceWishModal.classList.remove('open');
             });
 
-            // Function to show the main site and run its JS
             function showMainSite() {
-                if (isMainSiteInitialized) return; // Don't run twice
+                if (isMainSiteInitialized) return;
                 isMainSiteInitialized = true;
 
-                // Hide the countdown
                 countdownPage.style.display = 'none';
                 
-                // Show the main site structure
                 mainWebsite.style.display = 'block';
                 
-                // DIRECTLY initialize the main website animations
                 initializeMainWebsite();
 
-                // 1. ATTEMPT to start audio immediately when countdown ends
                 playAudio();
 
-                // 2. ALSO add a fallback listener: 
-                // If the browser blocked the line above, this ensures music starts 
-                // the moment the user touches the screen.
                 window.addEventListener('click', playAudio);
                 window.addEventListener('touchstart', playAudio);
             }
 
 
-            // Update the count down every 1 second
             const countdownInterval = setInterval(function() {
                 const now = new Date().getTime();
                 const distance = birthday - now;
 
-                // If the count down is finished
                 if (distance < 0) {
                     clearInterval(countdownInterval);
                     showMainSite();
-                    // Clear the timer display
                     document.getElementById("days").innerText = "0";
                     document.getElementById("hours").innerText = "0";
                     document.getElementById("minutes").innerText = "0";
                     document.getElementById("seconds").innerText = "0";
-                    return; // Stop the function
+                    return;
                 }
 
-                // Time calculations
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                // Display the result
                 document.getElementById("days").innerText = days;
                 document.getElementById("hours").innerText = hours;
                 document.getElementById("minutes").innerText = minutes;
@@ -1400,14 +1242,13 @@
 
             }, 1000);
 
-            // Also check on initial load (in case the date has already passed)
             const now = new Date().getTime();
             if (birthday - now < 0) {
-                clearInterval(countdownInterval); // Stop the timer just in case
+                clearInterval(countdownInterval);
                 showMainSite();
             }
 
-        }); // --- End of NEW DOMContentLoaded wrapper ---
+        });
 
     </script>
 </body>
